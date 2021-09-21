@@ -5,11 +5,9 @@ namespace App\DataFixtures;
 use App\Entity\Announce;
 use App\Entity\Category;
 use App\Entity\Classroom;
-use App\Entity\Day;
 use App\Entity\Discipline;
 use App\Entity\Lesson;
 use App\Entity\Note;
-use App\Entity\Planning;
 use App\Entity\Teacher;
 use App\Entity\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
@@ -48,67 +46,46 @@ class AppFixtures extends Fixture
                $userList[] = $user;
                $manager->persist($user);
            }
-           print 'GG BG';
-           $manager->flush();
-/*
-           // on crée 4 teachers avec email, noms, prénoms et une image "aléatoires" en français
-           $teacher = Array();
+           print '- GG BG -';
+           
+
+           /*// on crée 4 teachers avec email, noms, prénoms et une image "aléatoires" en français
+           $teacherList = Array();
            print 'creation des profs';
            for ($i = 0; $i < 4; $i++) {
-               $teacher[$i] = new Teacher();
-               $teacher[$i]->setEmail($faker->email);
-               $teacher[$i]->setLastname($faker->lastName);
-               $teacher[$i]->setFirstname($faker->firstName);
-               //$teacher[$i]->setRoles($faker->text());
-               $teacher[$i]->setImage($faker->image());
+               $teacher = new Teacher();
+               $teacher->setEmail($faker->email());
+               $teacher->setLastname($faker->lastName());
+               $teacher->setFirstname($faker->firstName());
+               //$teacher->setRoles($faker->text(15));
+               $teacher->setImage($faker->image());
+               $teacher->setPassword(
+                $this->passwordHasher->hashPassword(
+                    $teacher,
+                    'azertyu',
+                )); 
+               $teacherList[] = $teacher;
                //$teacher[$i]->setCreatedAt($faker->date($format = Y-m-d, $Max = 'now')); 
-               $manager->persist($teacher[$i]);
+               $manager->persist($teacher);
            }
+           print 'SUCCESS';*/
 
            // on crée 4 salles de classes 
            $class = Array();
-           print 'creation des salles de classes';
+           print 'creation des salles de classes ';
            for ($i = 0; $i < 4; $i++) {
                $class[$i] = new Classroom();
                $class[$i]->setLetter($faker->randomElement($array =array('a', 'b', 'c', 'd')));
                $class[$i]->setGrade($faker->numberBetween($min = 3, $max = 6));
-               $class[$i]->setTasks($faker->text($maxNbChars = 15 ));
-               $class[$i]->setContent($faker->text($maxNbChars = 50 ));
                //$class[$i]->setCompleted($faker->);
                //$classes[$i]->setCreatedAt($faker->date($format = Y-m-d, $Max = 'now'));
                $manager->persist($class[$i]);
            }
+           
+           
 
-           $dayList = [
-               'lundi',
-               'mardi',
-               'mercredi',
-               'jeudi',
-               'vendredi',
-               'samedi',
-               'dimanche',
-           ];
-
-        $dayObjectList = [];
-        print 'Création des jours';
-        foreach ($dayList as $dayName) {
-            $day = new Day();
-            $day->setName($dayName);
-            $dayObjectList[] = $day;
-            $manager->persist($day);
-        }
-
-        // on crée 4 salles de classes 
-        $planning = Array();
-        print 'creation des planning';
-        for ($i = 0; $i < 4; $i++){
-
-            $planning = new Planning();
-
-            $planning[$i]->setBegin($faker->date($format = Y-m-d, $Max = 'now'));
-            $planning[$i]->setFinish($faker->dateTimeInInterval($date = 'now', $interval = '+1 days', $timezone = null));
-            //$planning[$i]->setCreatedAt($faker->date($format = Y-m-d, $Max = 'now'));
-        }
+           
+        
         
         $disciplineList = [
             'Francais',
@@ -117,31 +94,36 @@ class AppFixtures extends Fixture
             'EPS',
             'Histoire-Géo',           
         ];
-
-     $disciplineObjectList = [];
-     print 'Création des jours';
-     foreach ($disciplineList as $disciplineName) {
-         $discipline = new Discipline();
-         $day->setName($disciplineName);
-         $disciplineObjectList[] = $discipline;
-         $manager->persist($discipline);
-     }
+        //we create five disciplines
+        $disciplineObjectList = [];
+        print 'Création des disciplines  ';
+        foreach ($disciplineList as $disciplineName) {
+            $discipline = new Discipline();
+            $discipline->setName($disciplineName);
+            $disciplineObjectList[] = $discipline;
+            $manager->persist($discipline);
+        }
+        
+     
+    
 
      // on crée des annonces 
      $announce = Array();
-     print 'creation des annonces';
+     print 'creation des annonces ';
      for ($i = 0; $i < 4; $i++) {
          $announce[$i] = new Announce();
          $announce[$i]->setTitle($faker->title);
          $announce[$i]->setContent($faker->text($maxNbChars = 150));
          $announce[$i]->setImage($faker->image());
          $announce[$i]->setTask($faker->text($maxNbChars = 15 ));
+         $announce[$i]->setCompleted($faker->boolean($chanceOfGettingTrue = 45));
          //$announce[$i]->setCompleted($faker->);
          
 
          //$classes[$i]->setCreatedAt($faker->date($format = Y-m-d, $Max = 'now'));
          $manager->persist($announce[$i]);
      }
+     
 
      $categoryList = [
         'Vie scolaire',
@@ -151,7 +133,7 @@ class AppFixtures extends Fixture
 
     $categoryObjectList = [];
 
-    print 'Création des categories';
+    print 'Création des categories ';
 
     foreach ($categoryList as $categoryName) {
         $category = new Category();
@@ -159,32 +141,35 @@ class AppFixtures extends Fixture
         $categoryObjectList[] = $category;
         $manager->persist($category);
     }
+    
+    
 
     // on crée des notes 
     $note = Array();
-    print 'creation des notes';
+    print 'creation des notes ';
     for ($i = 0; $i < 4; $i++){
         $note = new Note;
         $note->setTitle($faker->title);
         $note->setGrade($faker->numberBetween($min = 1, $max = 20));
         $manager->persist($note);
     }
+    
+    
+    
 
     // on crée des cours 
     $lesson = Array();
-    print 'creation des cours';
+    print 'creation des cours ';
     for ($i = 0; $i < 5; $i++){
         $lesson = new Lesson;
         $lesson->setContent($faker->text($maxNbChars = 100));
+        $lesson->setIsPrivate($faker->boolean($chanceOfGettingTrue = 0));
         //$lesson->setIsPrivate($faker->);
         $manager->persist($lesson);
     }
-
-
-    // TODO $note $lessons
-
-
-*/
-        
+    
+    $manager->flush();
+    print '-SUCCESS-'; 
+          
     }
 }
