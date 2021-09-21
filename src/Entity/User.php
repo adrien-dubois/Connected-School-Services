@@ -4,11 +4,16 @@ namespace App\Entity;
 
 use App\Repository\UserRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Serializer\Annotation\Groups;
+
+
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
+ * @UniqueEntity(fields={"email"}, message="There is already an account with this email")
  */
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
@@ -16,62 +21,75 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * 
+     * @Groups({"user_list", "user_detail"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=180, unique=true)
+     * @Groups({"user_list", "user_detail"})
      */
     private $email;
 
     /**
      * @ORM\Column(type="json")
+     * @Groups({"user_list", "user_detail"})
      */
     private $roles = [];
 
     /**
      * @var string The hashed password
      * @ORM\Column(type="string")
+     * @Groups({"user_list", "user_detail"})
      */
     private $password;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"user_list", "user_detail"})
      */
     private $firstname;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"user_list", "user_detail"})
      */
     private $lastname;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups({"user_list", "user_detail"})
      */
     private $image;
 
     /**
      * @ORM\Column(type="text", nullable=true)
+     * @Groups({"user_list", "user_detail"})
      */
     private $adress;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups({"user_list", "user_detail"})
      */
     private $phone;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups({"user_list", "user_detail"})
      */
     private $activation_token;
 
     /**
      * @ORM\Column(type="datetime_immutable")
+     * @Groups({"user_list", "user_detail"})
      */
     private $createdAt;
 
     /**
      * @ORM\Column(type="datetime_immutable", nullable=true)
+     * @Groups({"user_list", "user_detail"})
      */
     private $updatedAt;
 
@@ -79,6 +97,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @ORM\ManyToOne(targetEntity=Classroom::class, inversedBy="users")
      */
     private $classroom;
+
+    public function __construct()
+    {
+        $this->createdAt = new \DateTimeImmutable();
+        $this->roles = array ('ROLE_USER');
+    }
 
     public function getId(): ?int
     {
