@@ -80,6 +80,13 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private $classroom;
 
+    public function __construct()
+    {
+        $this->createdAt = new \DateTimeImmutable();
+        $this->roles = array ('ROLE_USER');
+    }
+
+
     public function getId(): ?int
     {
         return $this->id;
