@@ -49,7 +49,7 @@ class AppFixtures extends Fixture
            print '- GG BG -';
            
 
-           /*// on crée 4 teachers avec email, noms, prénoms et une image "aléatoires" en français
+           /*// on crée 4 teachers avec email, noms, prénoms et une image "aléatoires" en français */
            $teacherList = Array();
            print 'creation des profs';
            for ($i = 0; $i < 4; $i++) {
@@ -57,7 +57,7 @@ class AppFixtures extends Fixture
                $teacher->setEmail($faker->email());
                $teacher->setLastname($faker->lastName());
                $teacher->setFirstname($faker->firstName());
-               //$teacher->setRoles($faker->text(15));
+            //    $teacher->setRoles($faker->text(15));
                $teacher->setImage($faker->image());
                $teacher->setPassword(
                 $this->passwordHasher->hashPassword(
@@ -65,10 +65,10 @@ class AppFixtures extends Fixture
                     'azertyu',
                 )); 
                $teacherList[] = $teacher;
-               //$teacher[$i]->setCreatedAt($faker->date($format = Y-m-d, $Max = 'now')); 
+            //    $teacher[$i]->setCreatedAt($faker->date($format = Y-m-d, $Max = 'now')); 
                $manager->persist($teacher);
            }
-           print 'SUCCESS';*/
+           print 'SUCCESS';
 
            // on crée 4 salles de classes 
            $class = Array();
