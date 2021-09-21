@@ -17,13 +17,13 @@ class Category
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
-     * @Groups({"categories, announce"})
+     * @Groups({"categories", "announce"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups({"categories, announce"})
+     * @Groups({"categories", "announce"})
      */
     private $name;
 
@@ -41,7 +41,7 @@ class Category
 
     /**
      * @ORM\ManyToMany(targetEntity=Announce::class, mappedBy="category")
-     * @Groups({"categories, announce"})
+     * @Groups({"categories"})
      */
     private $announces;
 

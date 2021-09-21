@@ -26,7 +26,7 @@ class AnnounceController extends AbstractController
      */
     public function index(AnnounceRepository $announceRepository): Response
     {
-        // We get the Shows in DB and return it in Json
+        // We get the announces in DB and return it in Json
         $announce = $announceRepository->findAll();
 
         // This entry to the serializer will transform objects into Json, by searching only properties tagged by the "groups" name
