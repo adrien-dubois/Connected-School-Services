@@ -65,6 +65,8 @@ class Teacher implements UserInterface, PasswordAuthenticatedUserInterface
     public function __construct()
     {
         $this->classroom = new ArrayCollection();
+        $this->createdAt = new \DateTimeImmutable();
+        $this->roles = array ('ROLE_TEACHER');
     }
 
     public function getId(): ?int
