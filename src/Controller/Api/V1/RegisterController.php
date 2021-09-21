@@ -35,8 +35,10 @@ class RegisterController extends AbstractController
         // Define a default password, that will be change by the user
         $plainPassword = 'cssteamisthebest';
 
+        // Get the datas 
         $jsonData = $request->getContent();
 
+        // Deserialize into Json
         $user = $serializer->deserialize($jsonData, User::class, 'json');
 
         $errors = $validator->validate($user);
@@ -50,16 +52,20 @@ class RegisterController extends AbstractController
                 )
             );
 
+            // generate the unique activation token
             $user->setActivationToken(md5(uniqid()));
 
+            // Check if there are errors
             if(count($errors) > 0 ){
                 return $this->json($errors, 400);
             }
 
+            // Register in Database
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($user);
             $entityManager->flush();
             
+            // Prepare the email with the token and send it
             $message = (new \Swift_Message('Activation de votre compte'))
                     ->setFrom('admin@css.io')
                     ->setTo($user->getEmail())
@@ -73,10 +79,7 @@ class RegisterController extends AbstractController
             ;
             $mailer->send($message);
 
-
-            
-        
-
+        // If no errors send code 201 to API
         return $this->json($user, 201);
     }
 }
