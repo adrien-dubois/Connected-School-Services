@@ -54,6 +54,11 @@ class Discipline
      */
     private $lesson;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Teacher::class, mappedBy="discipline")
+     */
+    private $teachers;
+
     public function __construct()
     {
         $this->planning = new ArrayCollection();
@@ -61,6 +66,7 @@ class Discipline
         $this->teacher = new ArrayCollection();
         $this->lesson = new ArrayCollection();
         $this->createdAt = new \DateTimeImmutable();
+        $this->teachers = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -222,5 +228,13 @@ class Discipline
         }
 
         return $this;
+    }
+
+    /**
+     * @return Collection|Teacher[]
+     */
+    public function getTeachers(): Collection
+    {
+        return $this->teachers;
     }
 }

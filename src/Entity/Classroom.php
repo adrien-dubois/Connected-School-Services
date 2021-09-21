@@ -45,14 +45,14 @@ class Classroom
     private $announce;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Teacher::class, mappedBy="classroom")
-     */
-    private $teachers;
-
-    /**
      * @ORM\OneToMany(targetEntity=User::class, mappedBy="classroom")
      */
     private $users;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=Teacher::class, mappedBy="classroom")
+     */
+    private $teachers;
 
     public function __construct()
     {
@@ -140,33 +140,6 @@ class Classroom
     }
 
     /**
-     * @return Collection|Teacher[]
-     */
-    public function getTeachers(): Collection
-    {
-        return $this->teachers;
-    }
-
-    public function addTeacher(Teacher $teacher): self
-    {
-        if (!$this->teachers->contains($teacher)) {
-            $this->teachers[] = $teacher;
-            $teacher->addClassroom($this);
-        }
-
-        return $this;
-    }
-
-    public function removeTeacher(Teacher $teacher): self
-    {
-        if ($this->teachers->removeElement($teacher)) {
-            $teacher->removeClassroom($this);
-        }
-
-        return $this;
-    }
-
-    /**
      * @return Collection|User[]
      */
     public function getUsers(): Collection
@@ -191,6 +164,33 @@ class Classroom
             if ($user->getClassroom() === $this) {
                 $user->setClassroom(null);
             }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Teacher[]
+     */
+    public function getTeachers(): Collection
+    {
+        return $this->teachers;
+    }
+
+    public function addTeacher(Teacher $teacher): self
+    {
+        if (!$this->teachers->contains($teacher)) {
+            $this->teachers[] = $teacher;
+            $teacher->addClassroom($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTeacher(Teacher $teacher): self
+    {
+        if ($this->teachers->removeElement($teacher)) {
+            $teacher->removeClassroom($this);
         }
 
         return $this;
