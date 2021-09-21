@@ -6,6 +6,7 @@ use App\Repository\AnnounceRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass=AnnounceRepository::class)
@@ -16,51 +17,61 @@ class Announce
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Groups({"announce"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"announce"})
      */
     private $title;
 
     /**
      * @ORM\Column(type="text")
+     * @Groups({"announce"})
      */
     private $content;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups({"announce"})
      */
     private $image;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups({"announce"})
      */
     private $task;
 
     /**
      * @ORM\Column(type="boolean", nullable=true)
+     * @Groups({"announce"})
      */
     private $completed;
 
     /**
      * @ORM\Column(type="datetime_immutable")
+     * @Groups({"announce"})
      */
     private $createdAt;
 
     /**
      * @ORM\Column(type="datetime_immutable", nullable=true)
+     * @Groups({"announce"})
      */
     private $updatedAt;
 
     /**
      * @ORM\Column(type="datetime_immutable", nullable=true)
+     * @Groups({"announce"})
      */
     private $expireAt;
 
     /**
      * @ORM\ManyToMany(targetEntity=Category::class, inversedBy="announces")
+     * @Groups({"announce"})
      */
     private $category;
 
