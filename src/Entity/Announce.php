@@ -43,7 +43,7 @@ class Announce
      * @ORM\Column(type="string", length=255, nullable=true)
      * @Groups({"announce"})
      */
-    private $task;
+    private $homework;
 
     /**
      * @ORM\Column(type="datetime_immutable")
@@ -122,14 +122,14 @@ class Announce
         return $this;
     }
 
-    public function getTask(): ?string
+    public function getHomework(): ?string
     {
-        return $this->task;
+        return $this->homework;
     }
 
-    public function setTask(?string $task): self
+    public function setHomework(?string $homework): self
     {
-        $this->task = $task;
+        $this->homework = $homework;
 
         return $this;
     }
