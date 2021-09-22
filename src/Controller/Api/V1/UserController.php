@@ -11,9 +11,11 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Serializer\Normalizer\AbstractNormalizer;
 use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 /**
  * @Route("/api/v1/user", name="api_v1_user_", requirements={"id"="\d+"})
+ * @IsGranted("ROLE_TEACHER")
  */
 class UserController extends AbstractController
 {
