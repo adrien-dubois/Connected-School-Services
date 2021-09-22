@@ -24,7 +24,8 @@ class AppFixtures extends Fixture
     public function load(ObjectManager $manager)
     {
         $faker = \Faker\Factory::create('fr_FR');
-           // on crée 4 auteurs avec email,noms, prénoms, adresse, numero de tel et image "aléatoires" en français
+           // on crée 15 élèves avec email,noms, prénoms, adresse, numero de tel et image "aléatoires" en français
+           //we create 15 students with email, names, first names, address, phone number and "random" image in French
            $userList = Array();
            print 'creation des élèves ';
            for ($i = 0; $i < 15; $i++) {
@@ -49,7 +50,8 @@ class AppFixtures extends Fixture
            print '- GG BG -';
            
 
-           /*// on crée 4 teachers avec email, noms, prénoms et une image "aléatoires" en français */
+           /*// on crée 4 teachers avec email, noms, prénoms et une image "aléatoires" en français
+             // we create 4 teachers with email, names, first names and a "random" image in French 
            $teacherList = Array();
            print 'creation des profs';
            for ($i = 0; $i < 4; $i++) {
@@ -68,9 +70,10 @@ class AppFixtures extends Fixture
             //    $teacher[$i]->setCreatedAt($faker->date($format = Y-m-d, $Max = 'now')); 
                $manager->persist($teacher);
            }
-           print 'SUCCESS';
+           print 'SUCCESS';*/
 
-           // on crée 4 salles de classes 
+           // on crée 4 salles de classes
+           // we create 4 classrooms 
            $class = Array();
            print 'creation des salles de classes ';
            for ($i = 0; $i < 4; $i++) {
