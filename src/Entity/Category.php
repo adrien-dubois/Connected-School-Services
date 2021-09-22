@@ -17,31 +17,31 @@ class Category
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
-     * @Groups({"categories", "announce"})
+     * @Groups({"category", "announce"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups({"categories", "announce"})
+     * @Groups({"category", "announce"})
      */
     private $name;
 
     /**
      * @ORM\Column(type="datetime_immutable")
-     * @Groups({"categories"})
+     * @Groups({"category"})
      */
     private $createdAt;
 
     /**
      * @ORM\Column(type="datetime_immutable", nullable=true)
-     * @Groups({"categories"})
+     * @Groups({"category"})
      */
     private $updatedAt;
 
     /**
      * @ORM\ManyToMany(targetEntity=Announce::class, mappedBy="category")
-     * @Groups({"categories"})
+     * @Groups({"category"})
      */
     private $announces;
 

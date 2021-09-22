@@ -16,7 +16,7 @@ class Uploader
 
     public function upload($form, $fieldName)
     {
-        /** @var UploadedFile $imgFile */
+        /** @var UploadedFile $uploadFile */
         $uploadFile = $form->get($fieldName)->getData();
 
         if ($uploadFile) {
