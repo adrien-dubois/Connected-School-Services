@@ -11,6 +11,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Serializer\Normalizer\AbstractNormalizer;
 use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 /**
  * @Route("/api/v1/announce", name="api_v1_announce_", requirements={"id"="\d+"})
@@ -67,6 +68,7 @@ class AnnounceController extends AbstractController
      * Can create a new announce
      * 
      * @Route("/", name="add", methods={"POST"})
+     * @IsGranted("ROLE_TEACHER")
      *
      * @param Request $request
      * @param SerializerInterface $serializer
@@ -103,6 +105,7 @@ class AnnounceController extends AbstractController
      * Can edit an existing announce by its ID
      * 
      * @Route("/{id}", name="edit", methods={"PUT", "PATCH"})
+     * @IsGranted("ROLE_TEACHER")
      *
      * @return JsonResponse
      */
@@ -131,6 +134,7 @@ class AnnounceController extends AbstractController
      * Delete an existing announce by its id
      * 
      * @Route("/{id}", name="delete", methods={"DELETE"})
+     * @IsGranted("ROLE_TEACHER")
      *
      * @param integer $id
      * @param AnnounceRepository $announceRepository
