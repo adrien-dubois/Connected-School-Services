@@ -11,6 +11,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Serializer\Normalizer\AbstractNormalizer;
 use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 /**
  * @Route("/api/v1/lesson", name="api_v1_lesson_", requirements={"id"="\d+"})
@@ -67,6 +68,7 @@ class LessonController extends AbstractController
      * Create a new lesson
      * 
      * @Route("/", name="add", methods={"POST"})
+     * @IsGranted("ROLE_TEACHER")
      *
      * @param Request $request
      * @param SerializerInterface $serializer
@@ -101,6 +103,7 @@ class LessonController extends AbstractController
      * Update a lesson by its ID with PUT or PATCH method
      * 
      * @Route("/{id}", name="edit", methods={"PUT", "PATCH"})
+     * @IsGranted("ROLE_TEACHER")
      *
      * @param integer $id
      * @param LessonRepository $lessonRepository
@@ -137,6 +140,7 @@ class LessonController extends AbstractController
 
     /**
      * Delete a lesson
+     * @IsGranted("ROLE_TEACHER")
      *
      * @Route("/{id}", name="delete", methods={"DELETE"})
      * 
