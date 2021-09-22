@@ -153,6 +153,6 @@ class AnnounceController extends AbstractController
         return $this->json([
             'ok'=>'L\'annonce a bien été supprimée'
         ], 200
-    );
+        );
     }
 }
