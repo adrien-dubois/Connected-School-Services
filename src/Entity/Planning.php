@@ -47,6 +47,11 @@ class Planning
      */
     private $discipline;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Classroom::class, inversedBy="plannings")
+     */
+    private $classroom;
+
     public function __construct()
     {
         $this->createdAt = new \DateTimeImmutable();
@@ -125,6 +130,18 @@ class Planning
     public function setDiscipline(?Discipline $discipline): self
     {
         $this->discipline = $discipline;
+
+        return $this;
+    }
+
+    public function getClassroom(): ?Classroom
+    {
+        return $this->classroom;
+    }
+
+    public function setClassroom(?Classroom $classroom): self
+    {
+        $this->classroom = $classroom;
 
         return $this;
     }

@@ -58,12 +58,18 @@ class Classroom
      */
     private $teachers;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Planning::class, mappedBy="classroom")
+     */
+    private $plannings;
+
     public function __construct()
     {
         $this->announce = new ArrayCollection();
         $this->teachers = new ArrayCollection();
         $this->users = new ArrayCollection();
         $this->createdAt = new \DateTimeImmutable();
+        $this->plannings = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -195,6 +201,36 @@ class Classroom
     {
         if ($this->teachers->removeElement($teacher)) {
             $teacher->removeClassroom($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Planning[]
+     */
+    public function getPlannings(): Collection
+    {
+        return $this->plannings;
+    }
+
+    public function addPlanning(Planning $planning): self
+    {
+        if (!$this->plannings->contains($planning)) {
+            $this->plannings[] = $planning;
+            $planning->setClassroom($this);
+        }
+
+        return $this;
+    }
+
+    public function removePlanning(Planning $planning): self
+    {
+        if ($this->plannings->removeElement($planning)) {
+            // set the owning side to null (unless already changed)
+            if ($planning->getClassroom() === $this) {
+                $planning->setClassroom(null);
+            }
         }
 
         return $this;
