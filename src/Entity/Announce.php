@@ -46,12 +46,6 @@ class Announce
     private $task;
 
     /**
-     * @ORM\Column(type="boolean", nullable=true)
-     * @Groups({"announce"})
-     */
-    private $completed;
-
-    /**
      * @ORM\Column(type="datetime_immutable")
      * @Groups({"announce"})
      */
@@ -136,18 +130,6 @@ class Announce
     public function setTask(?string $task): self
     {
         $this->task = $task;
-
-        return $this;
-    }
-
-    public function getCompleted(): ?bool
-    {
-        return $this->completed;
-    }
-
-    public function setCompleted(?bool $completed): self
-    {
-        $this->completed = $completed;
 
         return $this;
     }
