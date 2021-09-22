@@ -22,74 +22,74 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      * 
-     * @Groups({"user_list", "user_detail"})
+     * @Groups({"user"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=180, unique=true)
-     * @Groups({"user_list", "user_detail"})
+     * @Groups({"user"})
      */
     private $email;
 
     /**
      * @ORM\Column(type="json")
-     * @Groups({"user_list", "user_detail"})
+     * @Groups({"user"})
      */
     private $roles = [];
 
     /**
      * @var string The hashed password
      * @ORM\Column(type="string")
-     * @Groups({"user_list", "user_detail"})
+     * @Groups({"user"})
      */
     private $password;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups({"user_list", "user_detail"})
+     * @Groups({"user"})
      */
     private $firstname;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups({"user_list", "user_detail"})
+     * @Groups({"user"})
      */
     private $lastname;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
-     * @Groups({"user_list", "user_detail"})
+     * @Groups({"user"})
      */
     private $image;
 
     /**
      * @ORM\Column(type="text", nullable=true)
-     * @Groups({"user_list", "user_detail"})
+     * @Groups({"user"})
      */
     private $adress;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
-     * @Groups({"user_list", "user_detail"})
+     * @Groups({"user"})
      */
     private $phone;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
-     * @Groups({"user_list", "user_detail"})
+     * @Groups({"user"})
      */
     private $activation_token;
 
     /**
      * @ORM\Column(type="datetime_immutable")
-     * @Groups({"user_list", "user_detail"})
+     * @Groups({"user"})
      */
     private $createdAt;
 
     /**
      * @ORM\Column(type="datetime_immutable", nullable=true)
-     * @Groups({"user_list", "user_detail"})
+     * @Groups({"user"})
      */
     private $updatedAt;
 
