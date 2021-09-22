@@ -1,0 +1,7 @@
+-`composer require symfony/apache-pack`
+-`php bin/console doctrine:fixtures:load ` ou `composer require doctrine/doctrine-fixtures-bundle --dev `
+-`composer require --dev orm-fixtures `
+-`composer require fzaninotto/faker `
+-`composer require symfony/swiftmailer-bundle`
+-`composer require lexik/jwt-authentication-bundle `
+-`composer require nelmio/cors-bundle`
