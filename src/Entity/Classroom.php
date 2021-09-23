@@ -17,7 +17,7 @@ class Classroom
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
-     * @Groups({"user"}, {"classroom"})
+     * @Groups({"user", "classroom"})
      */
     private $id;
 
