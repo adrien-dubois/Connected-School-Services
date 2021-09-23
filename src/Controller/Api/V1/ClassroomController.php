@@ -2,8 +2,8 @@
 
 namespace App\Controller\Api\V1;
 
-use App\Entity\Category;
-use App\Repository\CategoryRepository;
+use App\Entity\Classroom;
+use App\Repository\ClassroomRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -14,51 +14,52 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 /**
- * @Route("/api/v1/category", name="api_v1_category_", requirements={"id"="\d+"})
+ * 
+ * @Route("/api/v1/classroom", name="api_v1_classroom_", requirements={"id"="\d+"})
  */
-class CategoryController extends AbstractController
+class ClassroomController extends AbstractController
 {
     /**
      * @Route("/", name="index", methods={"GET"})
-     * Get the category list
-     * @param CategoryRepository $categoryRepository
+     * Get the classroom list
+     * @param ClassroomRepository $classroomRepository
      * @return Response
      */
-    public function index(CategoryRepository $categoryRepository): Response
+    public function index(ClassroomRepository $classroomRepository): Response
     {
-        $categories = $categoryRepository->findAll();
+        $classroom = $classroomRepository->findAll();
 
-        return $this->json($categories, 200, [], [
+        return $this->json($classroom, 200, [], [
 
-            'groups' => 'category'
+            'groups' => 'classroom'
         ]);
     }
 
     /**
      * @Route("/{id}", name="show", methods={"GET"})
+     * Get a classroom by its ID
      * 
-     * Get a category by its ID
      * @param integer $id
      * 
-     * @param CategoryRepository $categoryRepository
+     * @param ClassroomRepository $classroomRepository
      * 
      * @return JsonResponse
      */
-    public function show(int $id, CategoryRepository $categoryRepository)
+    public function show(int $id, ClassroomRepository $classroomRepository)
     {
-        $category = $categoryRepository->find($id);
-        if (!$category) {
+        $classroom = $classroomRepository->find($id);
+        if (!$classroom) {
             return $this->json([
-                'error' => 'La série' . $id . 'n\'existe pas'
+                'error' => 'La classe' . $id . 'n\'existe pas'
             ],404);
         }
 
-        return $this->json($category, 200, [], [
-            'groups' => 'category'
+        return $this->json($classroom, 200, [], [
+            'groups' => 'classroom'
         ]);
     }
     /**
-     * Create a new category
+     * Create a new classroom
      * @Route("/", name="add", methods={"POST"})
      * @IsGranted("ROLE_TEACHER")
      * 
@@ -71,83 +72,83 @@ class CategoryController extends AbstractController
     {
         $jsonData = $request->getContent();
 
-        $category = $serializerInterface->deserialize($jsonData, Category::class, 'json');
+        $classroom = $serializerInterface->deserialize($jsonData, Classroom::class, 'json');
 
-        $errors = $validatorInterface->validate($category);
+        $errors = $validatorInterface->validate($classroom);
 
         if (count($errors) > 0) {
             return $this->json($errors, 400);
         }
 
         $em = $this->getDoctrine()->getManager();
-        $em->persist($category);
+        $em->persist($classroom);
         $em->flush();
 
-        return $this->json($category, 201);
+        return $this->json($classroom, 201);
     }
 
     /**
-     * Update a category by its ID with PUT or PATCH method
+     * Update a classroom by its ID with PUT or PATCH method
      * 
      * @Route("/{id}", name="edit", methods={"PUT", "PATCH"})
      * @IsGranted("ROLE_TEACHER")
      * 
      * @param integer $id
-     * @param CategoryRepository $categoryRepository
+     * @param ClassroomRepository $classroomRepository
      * @param SerializerInterface $serializerInterface
      * @param Request $request
      * @return void
      */
-    public function update(int $id, CategoryRepository $categoryRepository, SerializerInterface $serializerInterface, Request $request)
+    public function update(int $id, ClassroomRepository $classroomRepository, SerializerInterface $serializerInterface, Request $request)
     {
         $jsonData = $request->getContent();
 
-        $category = $categoryRepository->find($id);
+        $classroom = $classroomRepository->find($id);
 
-        if(!$category) {
+        if(!$classroom) {
             return $this->json(
                 [
                     'errors' => [
-                        'message' => 'La categorie' . $id . 'n\'existe pas'
+                        'message' => 'La classe' . $id . 'n\'existe pas'
                     ]
                 ],
                 404
             );
         }
 
-        $serializerInterface->deserialize($jsonData, Category::class, 'json', [AbstractNormalizer::OBJECT_TO_POPULATE => $category]);
+        $serializerInterface->deserialize($jsonData, Classroom::class, 'json', [AbstractNormalizer::OBJECT_TO_POPULATE => $classroom]);
 
         $this->getDoctrine()->getManager()->flush();
 
         return $this->json([
-            'message' => 'La categorie ' . $category->getName() . ' a bien été mise a jour' 
+            'message' => 'La classe ' . $classroom->getGrade() . '-' . $classroom->getLetter() . ' a bien été mise a jour' 
         ]);
     }
 
     /**
-     * Delete a category
+     * Delete a classroom
      *
      * @Route("/{id}", name="delete", methods={"DELETE"})
      * @IsGranted("ROLE_TEACHER")
      * @param integer $id
-     * @param CategoryRepository $CategoryRepository
+     * @param ClassroomRepository $classroomRepository
      * @return JsonResponse
      */
-    public function delete (int $id, CategoryRepository $categoryRepository)
+    public function delete (int $id, ClassroomRepository $classroomRepository)
     {
-        $category = $categoryRepository->find($id);
+        $classroom = $classroomRepository->find($id);
 
-        if (!$category) {
+        if (!$classroom) {
             return $this->json([
-                'error' => 'La categorie' . $id . 'n\'existe pas'
+                'error' => 'La classe ' . $id . 'n\'existe pas'
             ], 404);
         }
         $em = $this->getDoctrine()->getManager();
-        $em->remove($category);
+        $em->remove($classroom);
         $em->flush();
 
-        return $this->json($category, 200, [], [
-            'groups' => 'category'
+        return $this->json($classroom, 200, [], [
+            'groups' => 'classroom'
         ]);
         
     }
