@@ -139,16 +139,17 @@ class CategoryController extends AbstractController
 
         if (!$category) {
             return $this->json([
-                'error' => 'La categorie' . $id . 'n\'existe pas'
+                'error' => 'La categorie ' . $id . ' n\'existe pas'
             ], 404);
         }
         $em = $this->getDoctrine()->getManager();
         $em->remove($category);
         $em->flush();
 
-        return $this->json($category, 200, [], [
-            'groups' => 'category'
-        ]);
+        return $this->json([
+            'ok'=>'La catégorie a bien été supprimée'
+        ], 200
+    );
         
     }
 }
