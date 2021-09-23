@@ -15,16 +15,19 @@ class Planning
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Groups({"user", "planning"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"user", "planning"})
      */
     private $begin;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"user", "planning"})
      */
     private $finish;
 
