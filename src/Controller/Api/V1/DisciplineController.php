@@ -3,7 +3,8 @@
 namespace App\Controller\Api\V1;
 
 use App\Entity\Classroom;
-use App\Repository\ClassroomRepository;
+use App\Entity\Discipline;
+use App\Repository\DisciplineRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -15,51 +16,51 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 /**
  * 
- * @Route("/api/v1/classroom", name="api_v1_classroom_", requirements={"id"="\d+"})
+ * @Route("/api/v1/discipline", name="api_v1_discipline_", requirements={"id"="\d+"})
  */
-class ClassroomController extends AbstractController
+class DisciplineController extends AbstractController
 {
     /**
      * @Route("/", name="index", methods={"GET"})
-     * Get the classroom list
-     * @param ClassroomRepository $classroomRepository
+     * Get the discipline list
+     * @param DisciplineRepository $disciplineRepository
      * @return Response
      */
-    public function index(ClassroomRepository $classroomRepository): Response
+    public function index(DisciplineRepository $disciplineRepository): Response
     {
-        $classroom = $classroomRepository->findAll();
+        $discipline = $disciplineRepository->findAll();
 
-        return $this->json($classroom, 200, [], [
+        return $this->json($discipline, 200, [], [
 
-            'groups' => 'classroom'
+            'groups' => 'discipline'
         ]);
     }
 
     /**
      * @Route("/{id}", name="show", methods={"GET"})
-     * Get a classroom by its ID
+     * Get a discipline by its ID
      * 
      * @param integer $id
      * 
-     * @param ClassroomRepository $classroomRepository
+     * @param DisciplineRepository $disciplineRepository
      * 
      * @return JsonResponse
      */
-    public function show(int $id, ClassroomRepository $classroomRepository)
+    public function show(int $id, DisciplineRepository $disciplineRepository)
     {
-        $classroom = $classroomRepository->find($id);
-        if (!$classroom) {
+        $discipline = $disciplineRepository->find($id);
+        if (!$discipline) {
             return $this->json([
-                'error' => 'La classe' . $id . 'n\'existe pas'
+                'error' => 'La discipline ' . $id . 'n\'existe pas'
             ],404);
         }
 
-        return $this->json($classroom, 200, [], [
-            'groups' => 'classroom'
+        return $this->json($discipline, 200, [], [
+            'groups' => 'discipline'
         ]);
     }
     /**
-     * Create a new classroom
+     * Create a new discipline
      * @Route("/", name="add", methods={"POST"})
      * @IsGranted("ROLE_TEACHER")
      * 
@@ -72,83 +73,83 @@ class ClassroomController extends AbstractController
     {
         $jsonData = $request->getContent();
 
-        $classroom = $serializerInterface->deserialize($jsonData, Classroom::class, 'json');
+        $discipline = $serializerInterface->deserialize($jsonData, Discipline::class, 'json');
 
-        $errors = $validatorInterface->validate($classroom);
+        $errors = $validatorInterface->validate($discipline);
 
         if (count($errors) > 0) {
             return $this->json($errors, 400);
         }
 
         $em = $this->getDoctrine()->getManager();
-        $em->persist($classroom);
+        $em->persist($discipline);
         $em->flush();
 
-        return $this->json($classroom, 201);
+        return $this->json($discipline, 201);
     }
 
     /**
-     * Update a classroom by its ID with PUT or PATCH method
+     * Update a discipline by its ID with PUT or PATCH method
      * 
      * @Route("/{id}", name="edit", methods={"PUT", "PATCH"})
      * @IsGranted("ROLE_TEACHER")
      * 
      * @param integer $id
-     * @param ClassroomRepository $classroomRepository
+     * @param DisciplineRepository $disciplineRepository
      * @param SerializerInterface $serializerInterface
      * @param Request $request
      * @return void
      */
-    public function update(int $id, ClassroomRepository $classroomRepository, SerializerInterface $serializerInterface, Request $request)
+    public function update(int $id, DisciplineRepository $disciplineRepository, SerializerInterface $serializerInterface, Request $request)
     {
         $jsonData = $request->getContent();
 
-        $classroom = $classroomRepository->find($id);
+        $discipline = $disciplineRepository->find($id);
 
-        if(!$classroom) {
+        if(!$discipline) {
             return $this->json(
                 [
                     'errors' => [
-                        'message' => 'La classe' . $id . 'n\'existe pas'
+                        'message' => 'La discipline ' . $id . 'n\'existe pas'
                     ]
                 ],
                 404
             );
         }
 
-        $serializerInterface->deserialize($jsonData, Classroom::class, 'json', [AbstractNormalizer::OBJECT_TO_POPULATE => $classroom]);
+        $serializerInterface->deserialize($jsonData, Discipline::class, 'json', [AbstractNormalizer::OBJECT_TO_POPULATE => $discipline]);
 
         $this->getDoctrine()->getManager()->flush();
 
         return $this->json([
-            'message' => 'La classe ' . $classroom->getGrade() . '-' . $classroom->getLetter() . ' a bien été mise a jour' 
+            'message' => 'La discipline ' . $discipline->getName() . ' a bien été mise a jour' 
         ]);
     }
 
     /**
-     * Delete a classroom
+     * Delete a discipline
      *
      * @Route("/{id}", name="delete", methods={"DELETE"})
      * @IsGranted("ROLE_TEACHER")
      * @param integer $id
-     * @param ClassroomRepository $classroomRepository
+     * @param DisciplineRepository $DisciplineRepository
      * @return JsonResponse
      */
-    public function delete (int $id, ClassroomRepository $classroomRepository)
+    public function delete (int $id, DisciplineRepository $DisciplineRepository)
     {
-        $classroom = $classroomRepository->find($id);
+        $discipline = $DisciplineRepository->find($id);
 
-        if (!$classroom) {
+        if (!$discipline) {
             return $this->json([
                 'error' => 'La classe ' . $id . 'n\'existe pas'
             ], 404);
         }
         $em = $this->getDoctrine()->getManager();
-        $em->remove($classroom);
+        $em->remove($discipline);
         $em->flush();
 
         return $this->json([
-            'ok'=>'La classe a bien été supprimée'
+            'ok'=>'La discipline a bien été supprimée'
         ], 200
     );
         
