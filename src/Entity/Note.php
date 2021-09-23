@@ -15,16 +15,19 @@ class Note
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Groups({"user", "note"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"user", "note"})
      */
     private $title;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"user", "note"})
      */
     private $grade;
 

@@ -2,8 +2,8 @@
 
 namespace App\Controller\Api\V1;
 
-use App\Entity\Day;
-use App\Repository\DayRepository;
+use App\Entity\Note;
+use App\Repository\NoteRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -15,51 +15,51 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 /**
  * 
- * @Route("/api/v1/day", name="api_v1_day_", requirements={"id"="\d+"})
+ * @Route("/api/v1/note", name="api_v1_note_", requirements={"id"="\d+"})
  */
-class DayController extends AbstractController
+class NoteController extends AbstractController
 {
     /**
      * @Route("/", name="index", methods={"GET"})
-     * Get the day list
-     * @param DayRepository $dayRepository
+     * Get the note list
+     * @param NoteRepository $noteRepository
      * @return Response
      */
-    public function index(DayRepository $dayRepository): Response
+    public function index(NoteRepository $noteRepository): Response
     {
-        $day = $dayRepository->findAll();
+        $note = $noteRepository->findAll();
 
-        return $this->json($day, 200, [], [
+        return $this->json($note, 200, [], [
 
-            'groups' => 'day'
+            'groups' => 'note'
         ]);
     }
 
     /**
      * @Route("/{id}", name="show", methods={"GET"})
-     * Get a day by its ID
+     * Get a note by its ID
      * 
      * @param integer $id
      * 
-     * @param DayRepository $dayRepository
+     * @param NoteRepository $noteRepository
      * 
      * @return JsonResponse
      */
-    public function show(int $id, DayRepository $dayRepository)
+    public function show(int $id, NoteRepository $noteRepository)
     {
-        $day = $dayRepository->find($id);
-        if (!$day) {
+        $note = $noteRepository->find($id);
+        if (!$note) {
             return $this->json([
-                'error' => 'La journée ' . $id . 'n\'existe pas'
+                'error' => 'La note ' . $id . 'n\'existe pas'
             ],404);
         }
 
-        return $this->json($day, 200, [], [
-            'groups' => 'day'
+        return $this->json($note, 200, [], [
+            'groups' => 'note'
         ]);
     }
     /**
-     * Create a new day
+     * Create a new note
      * @Route("/", name="add", methods={"POST"})
      * @IsGranted("ROLE_TEACHER")
      * 
@@ -72,85 +72,86 @@ class DayController extends AbstractController
     {
         $jsonData = $request->getContent();
 
-        $day = $serializerInterface->deserialize($jsonData, Day::class, 'json');
+        $note = $serializerInterface->deserialize($jsonData, Note::class, 'json');
 
-        $errors = $validatorInterface->validate($day);
+        $errors = $validatorInterface->validate($note);
 
         if (count($errors) > 0) {
             return $this->json($errors, 400);
         }
 
         $em = $this->getDoctrine()->getManager();
-        $em->persist($day);
+        $em->persist($note);
         $em->flush();
 
-        return $this->json($day, 201);
+        return $this->json($note, 201);
     }
 
     /**
-     * Update a day by its ID with PUT or PATCH method
+     * Update a note by its ID with PUT or PATCH method
      * 
      * @Route("/{id}", name="edit", methods={"PUT", "PATCH"})
      * @IsGranted("ROLE_TEACHER")
      * 
      * @param integer $id
-     * @param DayRepository $dayRepository
+     * @param NoteRepository $noteRepository
      * @param SerializerInterface $serializerInterface
      * @param Request $request
      * @return void
      */
-    public function update(int $id, DayRepository $dayRepository, SerializerInterface $serializerInterface, Request $request)
+    public function update(int $id, NoteRepository $noteRepository, SerializerInterface $serializerInterface, Request $request)
     {
         $jsonData = $request->getContent();
 
-        $day = $dayRepository->find($id);
+        $note = $noteRepository->find($id);
 
-        if(!$day) {
+        if(!$note) {
             return $this->json(
                 [
                     'errors' => [
-                        'message' => 'La journée ' . $id . 'n\'existe pas'
+                        'message' => 'L\'appréciation ' . $id . 'n\'existe pas'
                     ]
                 ],
                 404
             );
         }
 
-        $serializerInterface->deserialize($jsonData, Day::class, 'json', [AbstractNormalizer::OBJECT_TO_POPULATE => $day]);
+        $serializerInterface->deserialize($jsonData, Note::class, 'json', [AbstractNormalizer::OBJECT_TO_POPULATE => $note]);
 
         $this->getDoctrine()->getManager()->flush();
 
         return $this->json([
-            'message' => 'La journée ' . $day->getName() . ' a bien été mis a jour' 
+            'message' => 'L\'appréciation ' . $note->getTitle() . ' a bien été mis a jour' 
         ]);
     }
 
     /**
-     * Delete a day
+     * Delete a note
      *
      * @Route("/{id}", name="delete", methods={"DELETE"})
      * @IsGranted("ROLE_TEACHER")
      * @param integer $id
-     * @param DayRepository $dayRepository
+     * @param NoteRepository $noteRepository
      * @return JsonResponse
      */
-    public function delete (int $id, DayRepository $dayRepository)
+    public function delete (int $id, NoteRepository $noteRepository)
     {
-        $day = $dayRepository->find($id);
+        $note = $noteRepository->find($id);
 
-        if (!$day) {
+        if (!$note) {
             return $this->json([
-                'error' => 'La journée ' . $id . 'n\'existe pas'
+                'error' => 'L\'appréciation  ' . $id . 'n\'existe pas'
             ], 404);
         }
         $em = $this->getDoctrine()->getManager();
-        $em->remove($day);
+        $em->remove($note);
         $em->flush();
 
         return $this->json([
-            'ok'=>'La journée a bien été supprimée'
+            'ok'=>'L\'appréciation a bien été supprimée'
         ], 200
     );
         
     }
 }
+
