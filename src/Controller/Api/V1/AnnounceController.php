@@ -4,6 +4,7 @@ namespace App\Controller\Api\V1;
 
 use App\Entity\Announce;
 use App\Repository\AnnounceRepository;
+use App\Repository\CategoryRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -75,7 +76,7 @@ class AnnounceController extends AbstractController
      * @param ValidatorInterface $validator
      * @return JsonResponse
      */
-    public function add(Request $request, SerializerInterface $serializer, ValidatorInterface $validator)
+    public function add(Request $request, SerializerInterface $serializer, ValidatorInterface $validator, CategoryRepository $categoryRepository)
     {
         // we take back the JSON
         $jsonData = $request->getContent();
