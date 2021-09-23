@@ -19,47 +19,56 @@ class Teacher implements UserInterface, PasswordAuthenticatedUserInterface
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Groups({"user", "teacher"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=180, unique=true)
+     * @Groups({"user", "teacher"})
      */
     private $email;
 
     /**
      * @ORM\Column(type="json")
+     * @Groups({"user", "teacher"})
      */
     private $roles = [];
 
     /**
      * @var string The hashed password
      * @ORM\Column(type="string")
+     * @Groups({"user", "teacher"})
      */
     private $password;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"user", "teacher"})
      */
     private $firstname;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"user", "teacher"})
      */
     private $lastname;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups({"user", "teacher"})
      */
     private $image;
 
     /**
      * @ORM\ManyToOne(targetEntity=Discipline::class, inversedBy="teachers")
+     * @Groups({"user", "teacher"})
      */
     private $discipline;
 
     /**
      * @ORM\ManyToMany(targetEntity=Classroom::class, inversedBy="teachers")
+     * @Groups({"user", "teacher"})
      */
     private $classroom;
 
