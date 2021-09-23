@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\NoteRepository;
+use Symfony\Component\Serializer\Annotation\Groups;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
