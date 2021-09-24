@@ -55,7 +55,7 @@ class AnnounceController extends AbstractController
 
         // dd($category);
 
-        $announce = $announceRepository->searchAnnounceByCategory($category);
+        $announce = $announceRepository->findByCategory($category);
 
         return $this->json($announce, 200, [],[
             'groups' => 'announce'
