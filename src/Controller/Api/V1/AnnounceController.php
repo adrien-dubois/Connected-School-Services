@@ -51,17 +51,11 @@ class AnnounceController extends AbstractController
      */
     public function sortedBy(int $id, AnnounceRepository $announceRepository,CategoryRepository $categoryRepository)
     {
-        $categories = $categoryRepository->findOneBy(['id'=>$id])->getName();
+        $category = $categoryRepository->findOneBy(['id'=>$id])->getName();
 
-        dd($categories);
+        // dd($category);
 
-        $announce = $announceRepository->
-        findBy([
-            'category'=>[
-                'name' => $categories
-            ]
-            
-        ]);
+        $announce = $announceRepository->searchAnnounceByCategory($category);
 
         return $this->json($announce, 200, [],[
             'groups' => 'announce'
