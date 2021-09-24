@@ -17,19 +17,19 @@ class Day
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
-     * @Groups({"user", "day"})
+     * @Groups({"user", "day", "planning"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups({"user", "day"})
+     * @Groups({"user", "day", "planning"})
      */
     private $name;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups({"user", "day"})
+     * @Groups({"user", "day", "planning"})
      */
     private $number;
 

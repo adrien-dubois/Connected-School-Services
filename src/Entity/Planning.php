@@ -33,6 +33,7 @@ class Planning
 
     /**
      * @ORM\Column(type="datetime_immutable")
+     * 
      */
     private $createdAt;
 
@@ -43,16 +44,19 @@ class Planning
 
     /**
      * @ORM\ManyToOne(targetEntity=Day::class, inversedBy="plannings")
+     * @Groups({"planning"})
      */
     private $day;
 
     /**
      * @ORM\ManyToOne(targetEntity=Discipline::class, inversedBy="planning")
+     * @Groups({"planning"})
      */
     private $discipline;
 
     /**
      * @ORM\ManyToOne(targetEntity=Classroom::class, inversedBy="plannings")
+     * @Groups({"planning"})
      */
     private $classroom;
 
