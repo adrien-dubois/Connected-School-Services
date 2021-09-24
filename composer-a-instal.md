@@ -5,3 +5,6 @@
 -`composer require symfony/swiftmailer-bundle`
 -`composer require lexik/jwt-authentication-bundle `
 -`composer require nelmio/cors-bundle`
+
+
+-lien vpn ` http://kevin-planchais.vpnuser.lan/Apoth%C3%A9ose/projet-connected-school-services/public/api/login_check`
