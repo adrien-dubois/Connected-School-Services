@@ -3,6 +3,7 @@
 namespace App\Controller\Api\V1;
 
 use App\Entity\Planning;
+use App\Repository\ClassroomRepository;
 use App\Repository\PlanningRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -34,7 +35,6 @@ class PlanningController extends AbstractController
             'groups' => 'planning'
         ]);
     }
-
     /**
      * @Route("/{id}", name="show", methods={"GET"})
      * Get a planning by its ID

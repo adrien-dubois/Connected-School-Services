@@ -71,6 +71,7 @@ class Announce
 
     /**
      * @ORM\ManyToMany(targetEntity=Classroom::class, mappedBy="announce")
+     * @Groups({"announce"})
      */
     private $classrooms;
 
