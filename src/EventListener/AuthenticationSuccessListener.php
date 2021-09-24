@@ -30,19 +30,43 @@ class AuthenticationSuccessListener {
         // And get the datas we need
         $first = $test->getFirstname();
         $last = $test->getLastname();
-        
+        $role = $user->getRoles();
+
+        if($role == ["ROLE_USER"]){
+            $class = $test->getClassroom();
+            $letter = $class->getLetter();
+            $grade = $class->getGrade();
+            $classId = $class->getId();
+        }
+        else{
+            $class = $test->getClassroom();
+        }
         // Check and verify if $user is well part of UserInterface
         if(!$user instanceof UserInterface) {
             return;
         }
        
         // And then make the data array that will display in the body response of the connection with the JWT Token
+        if($role == ["ROLE_USER"]){
         $data['data'] = array(
             'firstname' => $first,
             'lastname' => $last,
             'roles' => $user->getRoles(),
-        );
-
+                'classroom' => [
+                    'id'=>$classId,
+                    'letter'=>$letter,
+                    'grade'=>$grade
+                ]
+            );
+        }
+        else{
+            $data['data'] = array(
+                'firstname' => $first,
+                'lastname' => $last,
+                'roles' => $user->getRoles(),
+                'classroom' => $class
+            );
+        }
         // Set it in the event
         $event->setData($data);
     }
