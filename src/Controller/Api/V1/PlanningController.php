@@ -88,6 +88,28 @@ class PlanningController extends AbstractController
     }
 
     /**
+     * Select planning order by classroom's ID
+     *
+     * @Route("/sortedby/{id}", name="sortedby", methods={"GET"})
+     * 
+     * @param integer $id
+     * @param PlanningRepository $planningRepository
+     * @param ClassroomRepository $classroomRepository
+     * @return void
+     */
+    public function sortedBy(int $id, PlanningRepository $planningRepository, ClassroomRepository $classroomRepository)
+    {
+        $classroom = $classroomRepository->find($id);
+
+        $planning = $planningRepository->findBy(['classroom'=>$classroom]);
+
+        return $this->json($planning, 200, [], [
+            'groups'=> 'planning'
+        ]);
+
+    }
+
+    /**
      * Update a planning by its ID with PUT or PATCH method
      * 
      * @Route("/{id}", name="edit", methods={"PUT", "PATCH"})

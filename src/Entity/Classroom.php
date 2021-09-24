@@ -77,6 +77,11 @@ class Classroom
         return $this->id;
     }
 
+    public function getName()
+    {
+        return $this->grade . ' ' . $this->letter;
+    }
+
     public function getLetter(): ?string
     {
         return $this->letter;
