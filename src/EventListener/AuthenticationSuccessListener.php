@@ -38,9 +38,9 @@ class AuthenticationSuccessListener {
        
         // And then make the data array that will display in the body response of the connection with the JWT Token
         $data['data'] = array(
-            'Nom' => $first,
-            'Prénom' => $last,
-            'Rôles' => $user->getRoles(),
+            'firstname' => $first,
+            'lastname' => $last,
+            'roles' => $user->getRoles(),
         );
 
         // Set it in the event
