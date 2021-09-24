@@ -19,7 +19,7 @@ class AnnounceRepository extends ServiceEntityRepository
         parent::__construct($registry, Announce::class);
     }
 
-    public function searchAnnounceByCategory($category)
+    public function findByCategory($category)
     {
         return $this->createQueryBuilder('announce')
                     ->join('announce.category', 'category')

@@ -3,6 +3,7 @@
 namespace App\Controller\Api\V1;
 
 use App\Entity\Planning;
+use App\Repository\ClassroomRepository;
 use App\Repository\PlanningRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -85,6 +86,28 @@ class PlanningController extends AbstractController
         $em->flush();
 
         return $this->json($planning, 201);
+    }
+
+    /**
+     * Select planning order by classroom's ID
+     *
+     * @Route("/sortedby/{id}", name="sortedby", methods={"GET"})
+     * 
+     * @param integer $id
+     * @param PlanningRepository $planningRepository
+     * @param ClassroomRepository $classroomRepository
+     * @return void
+     */
+    public function sortedBy(int $id, PlanningRepository $planningRepository, ClassroomRepository $classroomRepository)
+    {
+        $classroom = $classroomRepository->find($id);
+
+        $planning = $planningRepository->findBy(['classroom'=>$classroom]);
+
+        return $this->json($planning, 200, [], [
+            'groups'=> 'planning'
+        ]);
+
     }
 
     /**
