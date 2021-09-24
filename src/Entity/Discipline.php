@@ -6,6 +6,7 @@ use App\Repository\DisciplineRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass=DisciplineRepository::class)
@@ -16,11 +17,13 @@ class Discipline
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Groups({"lesson", "discipline", "planning"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"lesson", "discipline", "planning"})
      */
     private $name;
 
@@ -54,6 +57,11 @@ class Discipline
      */
     private $lesson;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Teacher::class, mappedBy="discipline")
+     */
+    private $teachers;
+
     public function __construct()
     {
         $this->planning = new ArrayCollection();
@@ -61,6 +69,7 @@ class Discipline
         $this->teacher = new ArrayCollection();
         $this->lesson = new ArrayCollection();
         $this->createdAt = new \DateTimeImmutable();
+        $this->teachers = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -222,5 +231,13 @@ class Discipline
         }
 
         return $this;
+    }
+
+    /**
+     * @return Collection|Teacher[]
+     */
+    public function getTeachers(): Collection
+    {
+        return $this->teachers;
     }
 }

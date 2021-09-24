@@ -6,6 +6,7 @@ use App\Repository\AnnounceRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass=AnnounceRepository::class)
@@ -16,51 +17,55 @@ class Announce
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Groups({"announce"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"announce"})
      */
     private $title;
 
     /**
      * @ORM\Column(type="text")
+     * @Groups({"announce"})
      */
     private $content;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups({"announce"})
      */
     private $image;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups({"announce"})
      */
-    private $task;
-
-    /**
-     * @ORM\Column(type="boolean", nullable=true)
-     */
-    private $completed;
+    private $homework;
 
     /**
      * @ORM\Column(type="datetime_immutable")
+     * @Groups({"announce"})
      */
     private $createdAt;
 
     /**
      * @ORM\Column(type="datetime_immutable", nullable=true)
+     * @Groups({"announce"})
      */
     private $updatedAt;
 
     /**
      * @ORM\Column(type="datetime_immutable", nullable=true)
+     * @Groups({"announce"})
      */
     private $expireAt;
 
     /**
      * @ORM\ManyToMany(targetEntity=Category::class, inversedBy="announces")
+     * @Groups({"announce"})
      */
     private $category;
 
@@ -117,26 +122,14 @@ class Announce
         return $this;
     }
 
-    public function getTask(): ?string
+    public function getHomework(): ?string
     {
-        return $this->task;
+        return $this->homework;
     }
 
-    public function setTask(?string $task): self
+    public function setHomework(?string $homework): self
     {
-        $this->task = $task;
-
-        return $this;
-    }
-
-    public function getCompleted(): ?bool
-    {
-        return $this->completed;
-    }
-
-    public function setCompleted(?bool $completed): self
-    {
-        $this->completed = $completed;
+        $this->homework = $homework;
 
         return $this;
     }

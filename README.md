@@ -12,6 +12,15 @@ Connected School Services is a digital services plateform, that brings together 
 - **Lead Dev Back** : Kevin Planchais
 - **Git Master** : Adrien Dubois
 
+## **_Dependencies to install :_**
+
+- fzaninotto/faker : `composer require fzaninotto/faker`
+- ORM Fixtures : `composer require --dev orm-fixtures`
+- Nelmio Cors : `composer require nelmio/cors-bundle`
+- JWT Lexik : `composer require lexik/jwt-authentication-bundle`
+- Swift Mailer : `composer require symfony/swiftmailer-bundle`
+- Apache-Pack : `composer require symfony/apache-pack`
+
 ## **_Technical Specifications :_**
 
 ### Technologies :

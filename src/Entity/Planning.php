@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\PlanningRepository;
+use Symfony\Component\Serializer\Annotation\Groups;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -14,21 +15,25 @@ class Planning
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Groups({"user", "planning"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"user", "planning"})
      */
     private $begin;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"user", "planning"})
      */
     private $finish;
 
     /**
      * @ORM\Column(type="datetime_immutable")
+     * 
      */
     private $createdAt;
 
@@ -39,13 +44,21 @@ class Planning
 
     /**
      * @ORM\ManyToOne(targetEntity=Day::class, inversedBy="plannings")
+     * @Groups({"planning"})
      */
     private $day;
 
     /**
      * @ORM\ManyToOne(targetEntity=Discipline::class, inversedBy="planning")
+     * @Groups({"planning"})
      */
     private $discipline;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Classroom::class, inversedBy="plannings")
+     * @Groups({"planning"})
+     */
+    private $classroom;
 
     public function __construct()
     {
@@ -125,6 +138,18 @@ class Planning
     public function setDiscipline(?Discipline $discipline): self
     {
         $this->discipline = $discipline;
+
+        return $this;
+    }
+
+    public function getClassroom(): ?Classroom
+    {
+        return $this->classroom;
+    }
+
+    public function setClassroom(?Classroom $classroom): self
+    {
+        $this->classroom = $classroom;
 
         return $this;
     }

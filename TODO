@@ -1,1 +1,14 @@
-modifier updatedAt de Note en nullable
+chercher comment envoyer ficher api
+mettre à jour la liste des endpoints sur tous les cruds ( peut être tester avant dans insomnia)
+
+
+----------- ERROR ----------
+Post annonce avec catégorie
+Post planning avec tous les autres ID
+
+------------  DONE  -------------
+Trier planning par classroom
+Simple roles
+quand cherche user -> afficher sa classe
+Chercher par catégorie
+user récupérer classroom
