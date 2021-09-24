@@ -43,4 +43,14 @@ class Uploader
             return false;
         }
     }
+
+            // $announce = new Announce();
+        // $form = $this->createForm(AnnounceType::class, $announce);
+        // $form->handleRequest($request);
+
+        // $newImage = $uploader->upload($form, 'imgBrut');
+
+        // if($newImage){
+        //     $announce->setImage($newImage);
+        // }
 }

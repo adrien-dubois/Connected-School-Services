@@ -3,8 +3,12 @@
 namespace App\Controller\Api\V1;
 
 use App\Entity\Announce;
+use App\Entity\Category;
+use App\Form\AnnounceType;
+use App\Normalizer\CategoryNormalizer;
 use App\Repository\AnnounceRepository;
 use App\Repository\CategoryRepository;
+use App\Service\Uploader;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -38,6 +42,33 @@ class AnnounceController extends AbstractController
     }
 
     /**
+     * Select announces sorted by categories
+     * 
+     * @Route("/sortedby/{id}", name="sortedby", methods={"GET"})
+     *
+     * @param AnnounceRepository $announceRepository
+     * @return void
+     */
+    public function sortedBy(int $id, AnnounceRepository $announceRepository,CategoryRepository $categoryRepository)
+    {
+        $categories = $categoryRepository->findOneBy(['id'=>$id])->getName();
+
+        dd($categories);
+
+        $announce = $announceRepository->
+        findBy([
+            'category'=>[
+                'name' => $categories
+            ]
+            
+        ]);
+
+        return $this->json($announce, 200, [],[
+            'groups' => 'announce'
+        ]);
+    }
+
+    /**
      *  Return informations of an announce with its ID
      * 
      * @Route("/{id}", name="show", methods={"GET"})
@@ -50,6 +81,8 @@ class AnnounceController extends AbstractController
     {
         // We get an announce by its ID
         $announce = $announceRepository->find($id);
+
+        // dd($announce);
 
         // If the announce does not exists, we display 404
         if(!$announce){
@@ -76,10 +109,11 @@ class AnnounceController extends AbstractController
      * @param ValidatorInterface $validator
      * @return JsonResponse
      */
-    public function add(Request $request, SerializerInterface $serializer, ValidatorInterface $validator, CategoryRepository $categoryRepository)
+    public function add(Request $request, SerializerInterface $serializer, ValidatorInterface $validator)
     {
         // we take back the JSON
         $jsonData = $request->getContent();
+
 
         // We transform the json in object
         // First argument : datas to deserialize
@@ -89,6 +123,8 @@ class AnnounceController extends AbstractController
 
         // We validate the datas stucked in $announce on criterias of annotations' Entity @assert
         $errors = $validator->validate($announce);
+
+        
 
         // If the errors array is not empty, we return an error code 400 that is a Bad Request
         if(count($errors) > 0) {
