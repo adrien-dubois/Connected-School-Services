@@ -8,6 +8,7 @@ use App\Form\AnnounceType;
 use App\Normalizer\CategoryNormalizer;
 use App\Repository\AnnounceRepository;
 use App\Repository\CategoryRepository;
+use App\Service\FileUploader;
 use App\Service\Uploader;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -17,6 +18,9 @@ use Symfony\Component\Serializer\Normalizer\AbstractNormalizer;
 use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\Validator\Constraints\File;
+use Symfony\Component\Validator\Constraints\NotBlank;
 
 /**
  * @Route("/api/v1/announce", name="api_v1_announce_", requirements={"id"="\d+"})
@@ -103,27 +107,25 @@ class AnnounceController extends AbstractController
      * @param ValidatorInterface $validator
      * @return JsonResponse
      */
-    public function add(Request $request, SerializerInterface $serializer, ValidatorInterface $validator)
+    public function add(Request $request, SerializerInterface $serializer, ValidatorInterface $validator, FileUploader $fileUploader)
     {
         // we take back the JSON
         $jsonData = $request->getContent();
 
-
         // We transform the json in object
         // First argument : datas to deserialize
-        // Second : The type of object we want 
+        // Second : The type of object we want
         // Last : Start type
         $announce = $serializer->deserialize($jsonData, Announce::class, 'json');
 
         // We validate the datas stucked in $announce on criterias of annotations' Entity @assert
         $errors = $validator->validate($announce);
 
-        
-
         // If the errors array is not empty, we return an error code 400 that is a Bad Request
-        if(count($errors) > 0) {
+        if (count($errors) > 0) {
             return $this->json($errors, 400);
         }
+  
 
         $em = $this->getDoctrine()->getManager();
         $em->persist($announce);

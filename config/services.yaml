@@ -33,3 +33,7 @@ services:
         autowire: true
         autoconfigure: true
         tags: [serializer.normalizer]
+
+    App\Service\FileUploader:
+        arguments:
+            $targetDirectory: 'uploads'
