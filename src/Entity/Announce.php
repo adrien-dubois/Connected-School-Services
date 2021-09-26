@@ -31,7 +31,7 @@ class Announce
     private $title;
 
     /**
-     * @ORM\Column(type="text")
+     * @ORM\Column(type="text", nullable=true)
      * @Groups({"announce"})
      */
     private $content;
