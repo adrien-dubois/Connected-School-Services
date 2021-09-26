@@ -22,6 +22,7 @@ use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Validator\Constraints\File;
 use Symfony\Component\Validator\Constraints\NotBlank;
 
@@ -131,44 +132,16 @@ class AnnounceController extends AbstractController
             return $this->json($errors, 400);
         }
 
-        $em = $this->getDoctrine()->getManager();
-        $em->persist($announce);
-        $em->flush();
-
-        return $this->json($announce, 201);
-    }
-
-    /**
-     * Testing image upload
-     * 
-     * @Route("/upload", name="upload", methods={"POST"})
-     *
-     * @param Request $request
-     * @return void
-     */
-    public function uploadTest(Request $request, ValidatorInterface $validator, SerializerInterface $serializer, Base64FileExtractor $base64FileExtractor)
-    {
-        
-        $jsonData = $request->getContent();
-        // dd($jsonData);
-        
-        /** @var Announce $announce */
-        $announce = $serializer->deserialize($jsonData, Announce::class, 'json');
-        
-        $errors = $validator->validate($announce);
-        
-        if (count($errors) > 0) {
-            return $this->json($errors, 400);
-        }
-        
+        // Decode the json request to get the image part into an array
         $data = json_decode($request->getContent(), true);
-        $imageFile = new UploadedBase64File($data['images']['value'], $data['images']['name']);
-        $form = $this->createForm(ImageType::class, $announce, ['csrf_protection' => false]);
-        $form->submit(['imageFile'=>$imageFile]);
-        $announce->setImage($imageFile);
-
-        if(!($form->isSubmitted() && $form->isValid())) {
-            return $this->json("blocage", 400);
+        if (isset($data['images'])) {
+            // Send it to the Uploader service to cut the code, get a uniq name 
+            $imageFile = new UploadedBase64File($data['images']['value'], $data['images']['name']);
+            // Create a form dedicated to the images
+            $form = $this->createForm(ImageType::class, $announce, ['csrf_protection' => false]);
+            // Submit the form and set the image
+            $form->submit(['imageFile'=>$imageFile]);
+            $announce->setImage($imageFile);
         }
 
         $em = $this->getDoctrine()->getManager();
