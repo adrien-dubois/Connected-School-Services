@@ -5,10 +5,13 @@ namespace App\Controller\Api\V1;
 use App\Entity\Announce;
 use App\Entity\Category;
 use App\Form\AnnounceType;
+use App\Form\ImageType;
 use App\Normalizer\CategoryNormalizer;
 use App\Repository\AnnounceRepository;
 use App\Repository\CategoryRepository;
+use App\Service\Base64FileExtractor;
 use App\Service\FileUploader;
+use App\Service\UploadedBase64File;
 use App\Service\Uploader;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -107,8 +110,10 @@ class AnnounceController extends AbstractController
      * @param ValidatorInterface $validator
      * @return JsonResponse
      */
-    public function add(Request $request, SerializerInterface $serializer, ValidatorInterface $validator, FileUploader $fileUploader)
+    public function add(Request $request, SerializerInterface $serializer, ValidatorInterface $validator)
     {
+
+
         // we take back the JSON
         $jsonData = $request->getContent();
 
@@ -125,7 +130,6 @@ class AnnounceController extends AbstractController
         if (count($errors) > 0) {
             return $this->json($errors, 400);
         }
-  
 
         $em = $this->getDoctrine()->getManager();
         $em->persist($announce);
@@ -134,7 +138,47 @@ class AnnounceController extends AbstractController
         return $this->json($announce, 201);
     }
 
-        /**
+    /**
+     * Testing image upload
+     * 
+     * @Route("/upload", name="upload", methods={"POST"})
+     *
+     * @param Request $request
+     * @return void
+     */
+    public function uploadTest(Request $request, ValidatorInterface $validator, SerializerInterface $serializer, Base64FileExtractor $base64FileExtractor)
+    {
+        
+        $jsonData = $request->getContent();
+        // dd($jsonData);
+        
+        /** @var Announce $announce */
+        $announce = $serializer->deserialize($jsonData, Announce::class, 'json');
+        
+        $errors = $validator->validate($announce);
+        
+        if (count($errors) > 0) {
+            return $this->json($errors, 400);
+        }
+        
+        $data = json_decode($request->getContent(), true);
+        $imageFile = new UploadedBase64File($data['images']['value'], $data['images']['name']);
+        $form = $this->createForm(ImageType::class, $announce, ['csrf_protection' => false]);
+        $form->submit(['imageFile'=>$imageFile]);
+        $announce->setImage($imageFile);
+
+        if(!($form->isSubmitted() && $form->isValid())) {
+            return $this->json("blocage", 400);
+        }
+
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($announce);
+        $em->flush();
+
+        return $this->json($announce, 201);
+    }
+
+    /**
      * Can edit an existing announce by its ID
      * 
      * @Route("/{id}", name="edit", methods={"PUT", "PATCH"})
