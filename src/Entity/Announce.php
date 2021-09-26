@@ -56,7 +56,7 @@ class Announce
     private $image;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\Column(type="text", nullable=true)
      * @Groups({"announce"})
      */
     private $homework;
