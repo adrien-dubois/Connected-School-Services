@@ -7,13 +7,20 @@
         <title>{% block title %}Connected School Services{% endblock %}</title>
 
         {% block stylesheets %}
+            <script src="https://use.fontawesome.com/releases/v5.15.3/js/all.js" crossorigin="anonymous"></script>
             <link rel="stylesheet" href="{{asset('css/bootstrap.css')}} ">
             <link rel="stylesheet" href="{{asset('css/styles.css')}} ">
+            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
         {% endblock %}
 
     </head>
+
     <body>
-        {% block body %}{% endblock %}
+    {% include "partials/_flash.html.twig" %}
+
+        {% block body %}
+        {% endblock %}
+        
         {% block javascripts %}
             <script src="{{asset('js/bootstrap.js')}} "></script>
         {% endblock %}

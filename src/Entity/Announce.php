@@ -7,9 +7,12 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=AnnounceRepository::class)
+ * @Vich\Uploadable
  */
 class Announce
 {
@@ -32,6 +35,19 @@ class Announce
      * @Groups({"announce"})
      */
     private $content;
+
+    /**
+     * @Assert\File(
+     *      maxSize = "1M",
+     *      maxSizeMessage = "Maximum size allowed : {{ limit }} {{ suffix }}.",
+     *      mimeTypes = {"image/png", "image/jpg", "image/jpeg"},
+     *      mimeTypesMessage = "Formats autorisés : png, jpg, jpeg."
+     * )
+     * @Vich\UploadableField(mapping="product_image", fileNameProperty="image")
+     *
+     * @var File|null
+     */
+    private $imageFile;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
@@ -219,5 +235,33 @@ class Announce
         }
 
         return $this;
+    }
+
+    /**
+     * Get the value of imageFile
+     *
+     * @return  File|null
+     */
+    public function getImageFile()
+    {
+        return $this->imageFile;
+    }
+
+    /**
+     * Set the value of imageFile
+     *
+     * @param File|\Symfony\Component\HttpFoundation\File\UploadedFile|null $imageFile 
+     *
+     * 
+     */
+    public function setImageFile($imageFile)
+    {
+        $this->imageFile = $imageFile;
+
+        if (null !== $imageFile) {
+             // Il est nécessaire qu'au moins un champ change si vous utilisez doctrine 
+            // sinon les écouteurs d'événement ne seront pas appelés et le fichier est perdu 
+            $this->updatedAt = new \DateTimeImmutable();
+        }
     }
 }

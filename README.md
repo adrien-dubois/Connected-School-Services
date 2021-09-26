@@ -20,6 +20,9 @@ Connected School Services is a digital services plateform, that brings together 
 - JWT Lexik : `composer require lexik/jwt-authentication-bundle`
 - Swift Mailer : `composer require symfony/swiftmailer-bundle`
 - Apache-Pack : `composer require symfony/apache-pack`
+- Vich Uploader : `config/packages/vich_uploader.yaml`
+
+[Tuto Uploader API](Docs/uploader-API.md)
 
 ## **_Technical Specifications :_**
 
