@@ -126,7 +126,7 @@ class LessonController extends AbstractController
             );
         }
 
-        // Transforms th json in an object
+        // Transforms the json in an object
         $serializer->deserialize($jsonData, Lesson::class, 'json', [AbstractNormalizer::OBJECT_TO_POPULATE=>$lesson]);
 
         // And update it into DB
