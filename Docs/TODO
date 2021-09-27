@@ -15,3 +15,5 @@ chercher comment envoyer ficher api
 Modifier dans annonces :  Homework en textarea / content en nullable
 Classer notes par Id d'élèves
 Classer annonces par ID de classes
+
+Trier les classes par Id de professeur 

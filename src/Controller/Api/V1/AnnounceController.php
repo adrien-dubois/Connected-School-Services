@@ -142,6 +142,8 @@ class AnnounceController extends AbstractController
         // First argument : datas to deserialize
         // Second : The type of object we want
         // Last : Start type
+        
+        /** @var Announce @announce */
         $announce = $serializer->deserialize($jsonData, Announce::class, 'json');
 
         // We validate the datas stucked in $announce on criterias of annotations' Entity @assert

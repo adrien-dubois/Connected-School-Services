@@ -39,7 +39,7 @@ class Announce
     /**
      * @Assert\File(
      *      maxSize = "1M",
-     *      maxSizeMessage = "Maximum size allowed : {{ limit }} {{ suffix }}.",
+     *      maxSizeMessage = "Taille maximale autorisée : {{ limit }} {{ suffix }}.",
      *      mimeTypes = {"image/png", "image/jpg", "image/jpeg"},
      *      mimeTypesMessage = "Formats autorisés : png, jpg, jpeg."
      * )

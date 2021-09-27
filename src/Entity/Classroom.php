@@ -35,11 +35,13 @@ class Classroom
 
     /**
      * @ORM\Column(type="datetime_immutable")
+     * @Groups({"classroom"})
      */
     private $createdAt;
 
     /**
      * @ORM\Column(type="datetime_immutable", nullable=true)
+     * @Groups({"classroom"})
      */
     private $updatedAt;
 
@@ -55,6 +57,7 @@ class Classroom
 
     /**
      * @ORM\ManyToMany(targetEntity=Teacher::class, mappedBy="classroom")
+     * @Groups({"classroom"})
      */
     private $teachers;
 

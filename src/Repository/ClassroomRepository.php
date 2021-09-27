@@ -19,6 +19,16 @@ class ClassroomRepository extends ServiceEntityRepository
         parent::__construct($registry, Classroom::class);
     }
 
+    public function findByTeacher($teacher)
+    {
+        return $this->createQueryBuilder('classroom')
+                    ->join('classroom.teachers', 'teacher')
+                    ->where('teacher.id LIKE :id')
+                    ->setParameter(':id', "%$teacher%")
+                    ->getQuery()
+                    ->getResult();
+    }
+
     // /**
     //  * @return Classroom[] Returns an array of Classroom objects
     //  */
