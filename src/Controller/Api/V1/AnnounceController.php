@@ -170,7 +170,9 @@ class AnnounceController extends AbstractController
         $em->persist($announce);
         $em->flush();
 
-        return $this->json($announce, 201);
+        return $this->json($announce, 201, [], [
+            'groups'=>'announce'
+        ]);
     }
 
     /**
