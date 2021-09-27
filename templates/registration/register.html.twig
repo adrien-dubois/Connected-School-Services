@@ -7,7 +7,7 @@
 {% block body %}
 <section class="py-5  container">
     <div class="form-signin py-5">
-        <h1 class="h3 mb-3 fw-bold fst-italic text-center">Inscription</h1>
+        <h1 class="h3 mb-3 fw-bold fst-italic text-center">Ajouter un élève</h1>
 
         <div class="form-floating ">
         {{ form_start(registrationForm) }}
@@ -32,13 +32,9 @@
             {{ form_widget(registrationForm.phone)}}
             {{ form_label(registrationForm.phone)}}
             </div>
-            <div class="form-floating my-2">
-            {{ form_widget(registrationForm.agreeTerms) }}
-            {{ form_label(registrationForm.agreeTerms) }}
-            </div>
         
 
-            <button type="submit" class="w-100 btn btn-lg btn-secondary">S'inscrire</button>
+            <button type="submit" class="w-100 btn btn-lg btn-secondary">Enregistrer</button>
         {{ form_end(registrationForm) }}
         </div>
     </section>
