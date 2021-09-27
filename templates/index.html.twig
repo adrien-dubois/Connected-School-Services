@@ -5,13 +5,17 @@
 {% endblock %}
 
 {% block body %}
-<h1>Bienvenue CSS</h1>
 
-<p><a href="{{path('app_login')}} ">Se connecter</a></p>
-{% if app.user %}
-<p><a href="{{path('app_logout')}} ">Se déconnecter</a></p>
-<p><a href="{{path('announce_add')}} ">Ajouter une annonce</a></p>
-{% endif %}
-<p><a href="{{path('app_register')}} ">Enregistrer un utilisateur</a></p>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+        <h2 class="fw-bold mb-4 text-muted text-center" style="text-shadow: 8px 6px 10px rgba(0, 0, 0, 0.350);">Panneau d'administration</h2>
+        </div>
+
+        <div class="col-md-12">
+        
+        </div>
+    </div>
+</div>
 
 {% endblock %}
