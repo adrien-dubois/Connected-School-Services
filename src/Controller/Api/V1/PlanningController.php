@@ -35,7 +35,6 @@ class PlanningController extends AbstractController
             'groups' => 'planning'
         ]);
     }
-
     /**
      * @Route("/{id}", name="show", methods={"GET"})
      * Get a planning by its ID
