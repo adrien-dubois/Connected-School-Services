@@ -4,6 +4,7 @@ namespace App\Controller\Api\V1;
 
 use App\Entity\Classroom;
 use App\Repository\ClassroomRepository;
+use App\Repository\TeacherRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -58,6 +59,27 @@ class ClassroomController extends AbstractController
             'groups' => 'classroom'
         ]);
     }
+
+    /**
+     * Display classrooms order by teachers ID
+     * 
+     * @Route("/sortedbyteacher/{id}", name="sortedby_teacher", methods={"GET"})
+     *
+     * @param integer $id
+     * @param ClassroomRepository $classroomRepository
+     * @param TeacherRepository $teacherRepository
+     * @return void
+     */
+    public function sortedByTeacher(int $id, ClassroomRepository $classroomRepository, TeacherRepository $teacherRepository)
+    {
+
+        $classroom = $classroomRepository->findByTeacher($id);
+
+        return $this->json($classroom, 200, [], [
+            'groups'=>'classroom'
+        ]);
+    }
+
     /**
      * Create a new classroom
      * @Route("/", name="add", methods={"POST"})

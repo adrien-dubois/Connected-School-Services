@@ -5,9 +5,14 @@ namespace App\Controller\Api\V1;
 use App\Entity\Announce;
 use App\Entity\Category;
 use App\Form\AnnounceType;
+use App\Form\ImageType;
 use App\Normalizer\CategoryNormalizer;
 use App\Repository\AnnounceRepository;
 use App\Repository\CategoryRepository;
+use App\Repository\ClassroomRepository;
+use App\Service\Base64FileExtractor;
+use App\Service\FileUploader;
+use App\Service\UploadedBase64File;
 use App\Service\Uploader;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -17,6 +22,10 @@ use Symfony\Component\Serializer\Normalizer\AbstractNormalizer;
 use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\Validator\Constraints\File;
+use Symfony\Component\Validator\Constraints\NotBlank;
 
 /**
  * @Route("/api/v1/announce", name="api_v1_announce_", requirements={"id"="\d+"})
@@ -63,6 +72,25 @@ class AnnounceController extends AbstractController
     }
 
     /**
+     * Get announces order by classrooms
+     * 
+     * @Route("/sortedbyclassroom/{id}", name="sortedby_classroom", methods={"GET"})
+     *
+     * @param integer $id
+     * @param AnnounceRepository $announceRepository
+     * @param ClassroomRepository $classroomRepository
+     * @return void
+     */
+    public function sortedByClassroom(int $id, AnnounceRepository $announceRepository)
+    {
+        $announce = $announceRepository->findByClassroom($id);
+
+        return $this->json($announce, 200, [],[
+            'groups'=>'announce'
+        ]);
+    }
+
+    /**
      *  Return informations of an announce with its ID
      * 
      * @Route("/{id}", name="show", methods={"GET"})
@@ -105,24 +133,37 @@ class AnnounceController extends AbstractController
      */
     public function add(Request $request, SerializerInterface $serializer, ValidatorInterface $validator)
     {
+
+
         // we take back the JSON
         $jsonData = $request->getContent();
 
-
         // We transform the json in object
         // First argument : datas to deserialize
-        // Second : The type of object we want 
+        // Second : The type of object we want
         // Last : Start type
+        
+        /** @var Announce @announce */
         $announce = $serializer->deserialize($jsonData, Announce::class, 'json');
 
         // We validate the datas stucked in $announce on criterias of annotations' Entity @assert
         $errors = $validator->validate($announce);
 
-        
-
         // If the errors array is not empty, we return an error code 400 that is a Bad Request
-        if(count($errors) > 0) {
+        if (count($errors) > 0) {
             return $this->json($errors, 400);
+        }
+
+        // Decode the json request to get the image part into an array
+        $data = json_decode($request->getContent(), true);
+        if (isset($data['images'])) {
+            // Send it to the Uploader service to cut the code, get a uniq name 
+            $imageFile = new UploadedBase64File($data['images']['value'], $data['images']['name']);
+            // Create a form dedicated to the images
+            $form = $this->createForm(ImageType::class, $announce, ['csrf_protection' => false]);
+            // Submit the form and set the image
+            $form->submit(['imageFile'=>$imageFile]);
+            $announce->setImage($imageFile);
         }
 
         $em = $this->getDoctrine()->getManager();
@@ -132,7 +173,7 @@ class AnnounceController extends AbstractController
         return $this->json($announce, 201);
     }
 
-        /**
+    /**
      * Can edit an existing announce by its ID
      * 
      * @Route("/{id}", name="edit", methods={"PUT", "PATCH"})

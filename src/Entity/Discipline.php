@@ -17,23 +17,25 @@ class Discipline
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
-     * @Groups({"lesson", "discipline", "planning"})
+     * @Groups({"lesson", "discipline", "planning", "note"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups({"lesson", "discipline", "planning"})
+     * @Groups({"lesson", "discipline", "planning", "note"})
      */
     private $name;
 
     /**
      * @ORM\Column(type="datetime_immutable")
+     * @Groups({"discipline"})
      */
     private $createdAt;
 
     /**
      * @ORM\Column(type="datetime_immutable", nullable=true)
+     * @Groups({"discipline"})
      */
     private $updatedAt;
 

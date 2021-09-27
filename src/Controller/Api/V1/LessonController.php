@@ -3,6 +3,7 @@
 namespace App\Controller\Api\V1;
 
 use App\Entity\Lesson;
+use App\Repository\DisciplineRepository;
 use App\Repository\LessonRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -61,6 +62,27 @@ class LessonController extends AbstractController
         // We return the result with Json format
         return $this->json($lesson, 200, [], [
             'groups' => 'lesson'
+        ]);
+    }
+
+    /**
+     * Select lessons sorted by discipline ID
+     * 
+     * @Route("/sortedbydiscipline/{id}", name="sortedby_discipline", methods={"GET"})
+     *
+     * @param integer $id
+     * @param DisciplineRepository $disciplineRepository
+     * @param LessonRepository $lessonRepository
+     * @return void
+     */
+    public function sortedByDiscipline(int $id, DisciplineRepository $disciplineRepository, LessonRepository $lessonRepository)
+    {
+        $discipline = $disciplineRepository->find($id);
+
+        $lesson = $lessonRepository->findBy(['discipline'=>$discipline]);
+
+        return $this->json($lesson, 200, [], [
+            'groups'=>'lesson'
         ]);
     }
 

@@ -33,21 +33,25 @@ class Note
 
     /**
      * @ORM\Column(type="datetime_immutable")
+     * @Groups({"note"})
      */
     private $createdAt;
 
     /**
      * @ORM\Column(type="datetime_immutable", nullable=true)
+     * @Groups({"note"})
      */
     private $updatedAt;
 
     /**
      * @ORM\ManyToOne(targetEntity=Discipline::class, inversedBy="note")
+     * @Groups({"note"})
      */
     private $discipline;
 
     /**
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="note")
+     * @Groups({"note"})
      */
     private $user;
 
