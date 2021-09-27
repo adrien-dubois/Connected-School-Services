@@ -9,6 +9,7 @@ use App\Form\ImageType;
 use App\Normalizer\CategoryNormalizer;
 use App\Repository\AnnounceRepository;
 use App\Repository\CategoryRepository;
+use App\Repository\ClassroomRepository;
 use App\Service\Base64FileExtractor;
 use App\Service\FileUploader;
 use App\Service\UploadedBase64File;
@@ -67,6 +68,25 @@ class AnnounceController extends AbstractController
 
         return $this->json($announce, 200, [],[
             'groups' => 'announce'
+        ]);
+    }
+
+    /**
+     * Get announces order by classrooms
+     * 
+     * @Route("/sortedbyclassroom/{id}", name="sortedby_classroom", methods={"GET"})
+     *
+     * @param integer $id
+     * @param AnnounceRepository $announceRepository
+     * @param ClassroomRepository $classroomRepository
+     * @return void
+     */
+    public function sortedByClassroom(int $id, AnnounceRepository $announceRepository)
+    {
+        $announce = $announceRepository->findByClassroom($id);
+
+        return $this->json($announce, 200, [],[
+            'groups'=>'announce'
         ]);
     }
 

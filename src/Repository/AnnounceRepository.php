@@ -29,6 +29,16 @@ class AnnounceRepository extends ServiceEntityRepository
                     ->getResult();
     }
 
+    public function findByClassroom($classroom)
+    {
+        return $this->createQueryBuilder('announce')
+                    ->join('announce.classrooms', 'classroom')
+                    ->where('classroom.id LIKE :id')
+                    ->setParameter(':id', "%$classroom%")
+                    ->getQuery()
+                    ->getResult();
+    }
+
     // /**
     //  * @return Announce[] Returns an array of Announce objects
     //  */

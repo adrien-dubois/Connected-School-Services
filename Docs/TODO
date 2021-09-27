@@ -12,3 +12,6 @@ quand cherche user -> afficher sa classe
 Chercher par catégorie
 user récupérer classroom
 chercher comment envoyer ficher api
+Modifier dans annonces :  Homework en textarea / content en nullable
+Classer notes par Id d'élèves
+Classer annonces par ID de classes

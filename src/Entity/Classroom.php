@@ -17,19 +17,19 @@ class Classroom
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
-     * @Groups({"user", "classroom", "planning"})
+     * @Groups({"user", "classroom", "planning", "announce"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups({"user", "classroom", "planning"})
+     * @Groups({"user", "classroom", "planning", "announce"})
      */
     private $letter;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups({"user", "classroom", "planning"})
+     * @Groups({"user", "classroom", "planning", "announce"})
      */
     private $grade;
 
@@ -70,6 +70,11 @@ class Classroom
         $this->users = new ArrayCollection();
         $this->createdAt = new \DateTimeImmutable();
         $this->plannings = new ArrayCollection();
+    }
+
+    public function __toString()
+    {
+    return $this->letter;
     }
 
     public function getId(): ?int
