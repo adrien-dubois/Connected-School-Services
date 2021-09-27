@@ -96,5 +96,5 @@ colorstylect{
 
 .nolink, .nolink:hover, .nolink a, .nolink:active, .nolink:visited{
     text-decoration: none;
-    color: white;
+    color: black;
 }
