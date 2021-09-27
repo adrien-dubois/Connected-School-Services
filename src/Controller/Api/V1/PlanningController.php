@@ -85,7 +85,9 @@ class PlanningController extends AbstractController
         $em->persist($planning);
         $em->flush();
 
-        return $this->json($planning, 201);
+        return $this->json($planning, 201, [], [
+            'groups'=>'planning'
+        ]);
     }
 
     /**
