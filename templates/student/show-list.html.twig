@@ -1,0 +1,26 @@
+{% extends "base.html.twig" %}
+
+{% block title %}
+    Liste des élèves - {{parent()}}
+{% endblock %}
+
+{% block body %}
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <h2 class="fw-bold mb-4 text-muted text-center" style="text-shadow: 8px 6px 10px rgba(0, 0, 0, 0.350);">Liste des élèves de la classe {{classroom.getName()}}</h2>
+        </div>
+
+        <div class="col-md-12">
+            <ul class="list-group list-group-flush mx-auto" style="width: 600px;">
+                {% for student in classroom.users %}
+                    <li class="list-group-item"><a href="#" class="nolink">{{student.lastname}} {{student.firstname}} </a> </li>
+                {% endfor %}
+                    <a href="{{path('student_home')}} " class="badge bg-secondary my-2" style="width: 85px; color: white; text-decoration: none">Retour</a>
+            </ul>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
