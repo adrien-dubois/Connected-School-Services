@@ -1,0 +1,59 @@
+    {% block navbar %}
+    {# Set the current route to put the links in active class #}
+    {% set currentRoute = app.request.attributes.get('_route') %}
+
+    <header>
+
+        {# LOGO PART #}
+        <nav class="navbar navbar-expand-md navbar-light sticky-top" style="background-color: #e3f2fd;">
+            <div class="container">
+                <a class="navbar-brand text-secondary" href=" {{path('home')}} ">
+                    <i class="fab fa-connectdevelop"></i>
+                    <strong>CSS - Connected School Services</strong>
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                {# PAGES LINKS #}
+
+                <div class="collapse navbar-collapse" id="navbarCollapse">
+                    <ul class="navbar-nav me-auto mb-2 mb-md-0">
+                        <li class="nav-item">
+                            <a class="nav-link {{(currentRoute == 'home')? 'active'}} " aria-current="page" href=" {{path('home')}} ">Accueil</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Élèves</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Professeurs</a>
+                        </li>
+                    </ul>
+                    
+                    <form class="d-flex ms-auto" action="">
+                        <div class="input-group ">
+                        <input type="text" class="form-control" placeholder="EX : Emploi du temps" aria-label="Recipient's username" aria-describedby="button-addon2">
+                        <button class="btn btn-outline-secondary" type="button" id="button-addon2">
+                        <i class="bi bi-search"></i>
+                        </button>
+                        </div>
+                    </form>
+                    <div class="d-flex">
+                        {% if app.user %}
+                            <a class="btn btn-danger mx-2" href=" {{path('app_logout')}} "><i class="bi bi-person-fill"></i></a>
+                            <p class="my-2 fw-bold" style="color: grey;"> 
+                            {{app.user.firstname}} {{app.user.lastname}} 
+                            </p>
+                            
+                        {% else %} 
+                            <a class="btn btn-secondary mx-2" href=" {{path('app_login')}}"><i class="bi bi-person-fill"></i></a>
+                        {% endif %}
+                    </div>
+                    
+                </div>
+            </div>
+        </nav>
+ 
+
+    
+    {% endblock %}
