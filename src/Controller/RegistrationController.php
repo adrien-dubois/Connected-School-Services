@@ -83,7 +83,7 @@ class RegistrationController extends AbstractController
             throw $this->createNotFoundException('Vous avez déjà activé votre compte');
         }
 
-        $em = $this->getDoctrine()->getManager();
+        $this->getDoctrine()->getManager();
         $resetForm = $this->createForm(PasswordValidateType::class, $user);
         $resetForm->handleRequest($request);
 

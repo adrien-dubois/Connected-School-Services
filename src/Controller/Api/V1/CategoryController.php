@@ -71,7 +71,7 @@ class CategoryController extends AbstractController
     {
         $jsonData = $request->getContent();
 
-        $category = $serializerInterface->deserialize($jsonData, Category::class, 'json');
+        $category = $serializerInterface->deserialize($jsonData, Category::class, 'json',[AbstractNormalizer::CIRCULAR_REFERENCE_HANDLER]);
 
         $errors = $validatorInterface->validate($category);
 
@@ -83,7 +83,9 @@ class CategoryController extends AbstractController
         $em->persist($category);
         $em->flush();
 
-        return $this->json($category, 201);
+        return $this->json($category, 201, [],[
+            'groups'=>'announce'
+        ]);
     }
 
     /**

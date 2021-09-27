@@ -1,0 +1,19 @@
+
+
+----------- ERROR ----------
+Post annonce avec catégorie
+Post planning avec tous les autres ID
+
+------------  DONE  -------------
+mettre à jour la liste des endpoints sur tous les cruds ( peut être tester avant dans insomnia)
+Trier planning par classroom
+Simple roles
+quand cherche user -> afficher sa classe
+Chercher par catégorie
+user récupérer classroom
+chercher comment envoyer ficher api
+Modifier dans annonces :  Homework en textarea / content en nullable
+Classer notes par Id d'élèves
+Classer annonces par ID de classes
+
+Trier les classes par Id de professeur 

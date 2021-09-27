@@ -41,7 +41,7 @@ class Category
 
     /**
      * @ORM\ManyToMany(targetEntity=Announce::class, mappedBy="category")
-     * @Groups({"category"})
+     * 
      */
     private $announces;
 

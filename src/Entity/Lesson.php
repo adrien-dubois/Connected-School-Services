@@ -49,6 +49,12 @@ class Lesson
      */
     private $discipline;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups({"lesson"})
+     */
+    private $title;
+
     public function __construct()
     {
         $this->createdAt = new \DateTimeImmutable();
@@ -115,6 +121,18 @@ class Lesson
     public function setDiscipline(?Discipline $discipline): self
     {
         $this->discipline = $discipline;
+
+        return $this;
+    }
+
+    public function getTitle(): ?string
+    {
+        return $this->title;
+    }
+
+    public function setTitle(?string $title): self
+    {
+        $this->title = $title;
 
         return $this;
     }

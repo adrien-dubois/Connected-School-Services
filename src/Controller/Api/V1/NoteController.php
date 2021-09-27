@@ -3,7 +3,9 @@
 namespace App\Controller\Api\V1;
 
 use App\Entity\Note;
+use App\Repository\ClassroomRepository;
 use App\Repository\NoteRepository;
+use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -58,6 +60,40 @@ class NoteController extends AbstractController
             'groups' => 'note'
         ]);
     }
+
+    /**
+     * Get Notes order by students
+     * 
+     * @Route("/sortedbystudents/{id}", name="sortedby_students", methods={"GET"})
+     *
+     * @param integer $id
+     * @param NoteRepository $noteRepository
+     * @param UserRepository $userRepository
+     * @return void
+     */
+    public function sortedByStudent(int $id, NoteRepository $noteRepository, UserRepository $userRepository)
+    {
+        $student = $userRepository->find($id);
+
+        $notes = $noteRepository->findBy(['user'=>$student]);
+
+        return $this->json($notes, 200, [],[
+            'groups' => 'note'
+        ]);
+    }
+
+
+    // public function sortedByClassroom(int $id, NoteRepository $noteRepository, ClassroomRepository $classroomRepository)
+    // {
+    //     $classroom = $classroomRepository->find($id);
+
+    //     $notes = $noteRepository->findBy(['user'=>$classroom]);
+
+    //     return $this->json($notes, 200, [],[
+    //         'groups' => 'note'
+    //     ]);
+    // }
+
     /**
      * Create a new note
      * @Route("/", name="add", methods={"POST"})

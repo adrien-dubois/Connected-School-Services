@@ -22,13 +22,13 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      * 
-     * @Groups({"user"})
+     * @Groups({"user", "note"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=180, unique=true)
-     * @Groups({"user"})
+     * @Groups({"user", "note"})
      */
     private $email;
 
@@ -47,13 +47,13 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups({"user"})
+     * @Groups({"user", "note"})
      */
     private $firstname;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups({"user"})
+     * @Groups({"user", "note"})
      */
     private $lastname;
 
