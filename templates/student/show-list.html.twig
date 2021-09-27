@@ -13,12 +13,33 @@
         </div>
 
         <div class="col-md-12">
-            <ul class="list-group list-group-flush mx-auto" style="width: 600px;">
+            <table class="table list-group-flush">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Nom</th>
+                        <th>Prénom</th>
+                        <th>E-Mail</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
                 {% for student in classroom.users %}
-                    <li class="list-group-item"><a href="#" class="nolink">{{student.lastname}} {{student.firstname}} </a> </li>
+                    <tr>
+                        <td>{{student.id}}</td>
+                        <td>{{student.lastname}}</td>
+                        <td>{{student.firstname}}</td>
+                        <td>{{student.email}}</td>
+                        <td>
+                            <a style="text-decoration: none; color: white;" href="{{ path('student_show', {id: student.id})}}" class="card-link badge rounded-pill bg-secondary">Détail</a>
+                            <a style="text-decoration: none; color: white; " href="{{ path('student_update', {id : student.id})}}" class="card-link badge rounded-pill bg-success mx-2">Edit</a>
+                            <a style="text-decoration: none; color: white; " href="{{ path('student_delete', {id : student.id})}}" class="card-link badge rounded-pill bg-danger mx-2">Suppr.</a>
+                        </td>
+                    </tr>
                 {% endfor %}
-                    <a href="{{path('student_home')}} " class="badge bg-secondary my-2" style="width: 85px; color: white; text-decoration: none">Retour</a>
-            </ul>
+                </tbody>
+            </table>
+            <a href="{{path('student_home')}} " class="badge bg-secondary my-2" style="width: 85px; color: white; text-decoration: none">Retour</a>
         </div>
     </div>
 </div>

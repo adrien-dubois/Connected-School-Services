@@ -23,7 +23,7 @@ class StudentController extends AbstractController
     /**
      * Display all classrooms
      * 
-     * @Route("/", name="home")
+     * @Route("/", name="home", methods={"GET"})
      *
      * @return Response
      */
@@ -37,7 +37,7 @@ class StudentController extends AbstractController
     /**
      * Display student list of a classroom selected by its ID
      * 
-     * @Route("/{id}/classroom", name="classroom", requirements={"id"="\d+"})
+     * @Route("/{id}/classroom", name="classroom", requirements={"id"="\d+"}, methods={"GET"})
      *
      * @param Classroom $classroom
      * @return void
@@ -52,7 +52,7 @@ class StudentController extends AbstractController
     /**
      * Show a student by its ID
      * 
-     * @Route("/{id}", name="show", requirements={"id"="\d+"})
+     * @Route("/{id}", name="show", requirements={"id"="\d+"}, methods={"GET"})
      *
      * @param User $user
      * @return void
@@ -67,7 +67,7 @@ class StudentController extends AbstractController
     /**
      * Create a new student
      * 
-     * @Route("/add", name="add")
+     * @Route("/add", name="add", methods={"GET", "POST"})
      *
      * @param Request $request
      * @param UserPasswordHasherInterface $hasher
@@ -126,7 +126,7 @@ class StudentController extends AbstractController
     /**
      * Update a student by its ID
      * 
-     * @Route("/{id}/update", name="update", requirements={"id"="\d+"})
+     * @Route("/{id}/update", name="update", requirements={"id"="\d+"}, methods={"GET", "POST"})
      *
      * @param Request $request
      * @param User $user
@@ -134,7 +134,7 @@ class StudentController extends AbstractController
      */
     public function update(Request $request, User $user)
     {
-        $form = $this->createForm(StudentType::class, $user);
+        $form = $this->createForm(RegistrationFormType::class, $user);
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid()){
@@ -150,14 +150,14 @@ class StudentController extends AbstractController
 
         return $this->render('student/update.html.twig', [
             'user'=>$user,
-            'formView'=>$form->createView()
+            'registrationForm'=>$form->createView()
         ]);
     }
 
     /**
      * Delete a selected student
      * 
-     * @Route("/{id}/delete", name="delete", requirements={"id"="\d+"})
+     * @Route("/{id}", name="delete", requirements={"id"="\d+"}, methods={"POST"})
      *
      * @param User $user
      * @return void
