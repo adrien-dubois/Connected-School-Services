@@ -28,7 +28,7 @@ class AppFixtures extends Fixture
            //we create 15 students with email, names, first names, address, phone number and "random" image in French
            $userList = Array();
            print 'creation des élèves ';
-           for ($i = 0; $i < 15; $i++) {
+           for ($i = 0; $i < 45; $i++) {
                $user = new User();
                $password = 'azertyu';
                $user->setEmail($faker->email());
@@ -50,11 +50,11 @@ class AppFixtures extends Fixture
            print '- GG BG -';
            
 
-           /*// on crée 4 teachers avec email, noms, prénoms et une image "aléatoires" en français
+           // on crée 4 teachers avec email, noms, prénoms et une image "aléatoires" en français
              // we create 4 teachers with email, names, first names and a "random" image in French 
            $teacherList = Array();
            print 'creation des profs';
-           for ($i = 0; $i < 4; $i++) {
+           for ($i = 0; $i < 18; $i++) {
                $teacher = new Teacher();
                $teacher->setEmail($faker->email());
                $teacher->setLastname($faker->lastName());
@@ -70,7 +70,7 @@ class AppFixtures extends Fixture
             //    $teacher[$i]->setCreatedAt($faker->date($format = Y-m-d, $Max = 'now')); 
                $manager->persist($teacher);
            }
-           print 'SUCCESS';*/
+           print 'SUCCESS';/*
 
            // on crée 4 salles de classes
            // we create 4 classrooms 
@@ -169,7 +169,7 @@ class AppFixtures extends Fixture
         $lesson->setIsPrivate($faker->boolean($chanceOfGettingTrue = 0));
         //$lesson->setIsPrivate($faker->);
         $manager->persist($lesson);
-    }
+    }*/
     
     $manager->flush();
     print '-SUCCESS-'; 
