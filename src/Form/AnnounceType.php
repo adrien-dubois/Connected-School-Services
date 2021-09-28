@@ -32,16 +32,16 @@ class AnnounceType extends AbstractType
                 'image_uri' => true ,
                'asset_helper' => true,
             ])
-           ->add('category', EntityType::class,[
-              'class'=>Category::class,
-              'label'=>'Catégories',
-              'expanded'=>true,
-              'multiple'=>true,
-              'choice_label'=>'name',
-              'attr'=>[
-                  'class'=>'text-center mx-auto'
-              ] 
-           ])
+        //    ->add('category', EntityType::class,[
+        //       'class'=>Category::class,
+        //       'label'=>'Catégories',
+        //       'expanded'=>true,
+        //       'multiple'=>true,
+        //       'choice_label'=>'name',
+        //       'attr'=>[
+        //           'class'=>'text-center mx-auto'
+        //       ] 
+        //    ])
            ->add('submit', SubmitType::class,[
             'label'=>'Envoyer',
             'attr'=>[
