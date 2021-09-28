@@ -3,6 +3,8 @@
 namespace App\Form;
 
 use App\Entity\Announce;
+use App\Entity\Category;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
@@ -29,6 +31,16 @@ class AnnounceType extends AbstractType
                 'download_uri' => true ,
                 'image_uri' => true ,
                'asset_helper' => true,
+            ])
+           ->add('category', EntityType::class,[
+              'class'=>Category::class,
+              'label'=>'Catégories',
+              'expanded'=>true,
+              'multiple'=>true,
+              'choice_label'=>'name',
+              'attr'=>[
+                  'class'=>'text-center mx-auto'
+              ] 
            ])
            ->add('submit', SubmitType::class,[
             'label'=>'Envoyer',
