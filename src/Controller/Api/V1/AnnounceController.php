@@ -197,6 +197,18 @@ class AnnounceController extends AbstractController
 
         $serializer->deserialize($jsonData, Announce::class, 'json', [AbstractNormalizer::OBJECT_TO_POPULATE=>$announce]);
 
+        // Decode the json request to get the image part into an array
+        $data = json_decode($request->getContent(), true);
+        if (isset($data['images'])) {
+            // Send it to the Uploader service to cut the code, get a uniq name 
+            $imageFile = new UploadedBase64File($data['images']['value'], $data['images']['name']);
+            // Create a form dedicated to the images
+            $form = $this->createForm(ImageType::class, $announce, ['csrf_protection' => false]);
+            // Submit the form and set the image
+            $form->submit(['imageFile'=>$imageFile]);
+            $announce->setImage($imageFile);
+        }
+
         $this->getDoctrine()->getManager()->flush();
 
         return $this->json(["message"=>"L'annonce a bien été modifiée"], 200, [], [

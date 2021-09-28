@@ -27,6 +27,7 @@ class Announce
     /**
      * @ORM\Column(type="string", length=255)
      * @Groups({"announce"})
+     * @Assert\NotBlank(message="Ajouter un titre")
      */
     private $title;
 

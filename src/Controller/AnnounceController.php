@@ -31,6 +31,11 @@ class AnnounceController extends AbstractController
             $em->persist($announce);
             $em->flush();
 
+            $this->addFlash(
+                'success',
+                'L\'annonce a bien été postée'
+            );
+
             return $this->redirectToRoute('home');
         }
 
