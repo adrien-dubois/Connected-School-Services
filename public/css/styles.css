@@ -95,7 +95,12 @@ colorstylect{
     }
 }
 
-.nolink, .nolink:hover, .nolink a, .nolink:active, .nolink:visited{
+.nolink, .nolink a, .nolink:visited{
     text-decoration: none;
     color: black;
+}
+
+.nolink:hover, .nolink:active{
+    text-decoration: none;
+    color: #34b775;
 }
