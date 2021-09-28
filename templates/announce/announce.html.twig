@@ -6,19 +6,25 @@
 
 {% block body %}
 
-<section class="container text-center">
-    <div class="row py-lg-5">
-        <div class="col-lg-6 col-md-8 mx-auto">
-            <h1 class="fw-light">Ajouter une annonce</h1>
-        </div>
-    </div>
-</section>
+<section class="container">
+    <div class="form-signin">
+        <h1 class="h3 mb-3 fw-bold fst-italic text-center">Ajouter une annonce</h1>
 
-<div class="input-group-sm mb-3 mx-auto" style="width: 450px;">
-    {{ form_start(formView, {'attr': {'novalidate': 'novalidate'}}) }}
-        
-    {{ form_end(formView) }}
-</div>  
+        <div class="form-floating ">
+        {{ form_start(formView) }}
+        </div>
+            <div class="form-floating my-2">
+            {{ form_widget(formView.title) }}
+            {{ form_label(formView.title) }}
+             </div>
+            <div class="form-floating my-2">
+            {{ form_widget(formView.content)}}
+            {{ form_label(formView.content)}}
+            </div>
+        {{ form_end(formView) }}
+        </div>
+    </section>
+</main>
 
 <a href=" {{ path('home') }} " class="btn btn-secondary my-2 mx-4">Retour à l'accueil</a>  
 
