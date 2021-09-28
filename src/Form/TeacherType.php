@@ -2,12 +2,12 @@
 
 namespace App\Form;
 
-use App\Entity\User;
+use App\Entity\Teacher;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class StudentType extends AbstractType
+class TeacherType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -18,11 +18,7 @@ class StudentType extends AbstractType
             ->add('firstname')
             ->add('lastname')
             ->add('image')
-            ->add('adress')
-            ->add('phone')
-            ->add('activation_token')
-            ->add('createdAt')
-            ->add('updatedAt')
+            ->add('discipline')
             ->add('classroom')
         ;
     }
@@ -30,7 +26,7 @@ class StudentType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => User::class,
+            'data_class' => Teacher::class,
         ]);
     }
 }
