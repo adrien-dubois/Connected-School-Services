@@ -72,6 +72,11 @@ class Teacher implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private $classroom;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $activation_token;
+
     public function __construct()
     {
         $this->classroom = new ArrayCollection();
@@ -121,7 +126,7 @@ class Teacher implements UserInterface, PasswordAuthenticatedUserInterface
     {
         $roles = $this->roles;
         // guarantee every user at least has ROLE_USER
-        $roles[] = 'ROLE_USER';
+        // $roles[] = 'ROLE_USER';
 
         return array_unique($roles);
     }
@@ -236,6 +241,18 @@ class Teacher implements UserInterface, PasswordAuthenticatedUserInterface
     public function removeClassroom(Classroom $classroom): self
     {
         $this->classroom->removeElement($classroom);
+
+        return $this;
+    }
+
+    public function getActivationToken(): ?string
+    {
+        return $this->activation_token;
+    }
+
+    public function setActivationToken(?string $activation_token): self
+    {
+        $this->activation_token = $activation_token;
 
         return $this;
     }
