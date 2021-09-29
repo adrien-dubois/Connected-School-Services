@@ -1,7 +1,6 @@
 Annonces devoirs trier par date expireAt
 
 Gestion des classes ( composition)
-Virer les annonces 
 Checker API éducation nationale
 
 
@@ -17,6 +16,8 @@ Modifier dans annonces :  Homework en textarea / content en nullable
 Classer notes par Id d'élèves
 Classer annonces par ID de classes
 Trier les classes par Id de professeur 
-
 Post annonce avec catégorie
 Post planning avec tous les autres ID
+
+
+Virer les annonces 

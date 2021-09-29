@@ -120,6 +120,11 @@ class AnnounceController extends AbstractController
         ]);
     }
 
+    public function lessons(AnnounceRepository $repository)
+    {
+        // $lessons = $repository->findBy([],['homework'=>'expireAt']);
+    }
+
     /**
      * Can create a new announce
      * 
