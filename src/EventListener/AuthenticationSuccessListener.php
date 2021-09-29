@@ -79,6 +79,7 @@ class AuthenticationSuccessListener {
         }
         elseif($role == ["ROLE_TEACHER"]){
             $data['data'] = array(
+                'id'=> $id,
                 'firstname' => $first,
                 'lastname' => $last,
                 'roles' => $user->getRoles(),
@@ -88,6 +89,7 @@ class AuthenticationSuccessListener {
         }
         else{
             $data['data'] = array(
+                'id'=>$id,
                 'firstname' => $first,
                 'lastname' => $last,
                 'roles' => $user->getRoles(),
@@ -95,6 +97,7 @@ class AuthenticationSuccessListener {
             );
         }
         // Set it in the event
+        
         $event->setData($data);
     }
 }

@@ -46,8 +46,8 @@
             {# TEACHER PART #}
             <li>
                 <a class="nav-link px-3 sidebar-link " data-bs-toggle="collapse" href="#collapseTeacher" role="button" aria-expanded="false" aria-controls="collapseTeacher">
-                <span class="me-2"> <i class="fas fa-school"></i> </span>
-                <span>Gestion établissement</span>
+                <span class="me-2"> <i class="fas fa-chalkboard-teacher"></i> </span>
+                <span>Gestion professeurs</span>
                 <span class="right-icon ms-auto"> 
                     <i class="bi bi-chevron-down"></i>
                 </span>
@@ -63,7 +63,7 @@
                             </li>
                             <li>
                                 <a href="{{path('teacher_home')}} " class="nav-link px-3">
-                                    <span class="me-2"><i class="fas fa-chalkboard-teacher"></i> </span>
+                                    <span class="me-2"><i class="fas fa-users"></i> </span>
                                     <span>Liste des professeurs</span>
                                 </a>
                             </li>
@@ -76,21 +76,40 @@
                 <hr class="dropdown-divider" />
             </li> 
 
-            {# MESSAGES PART #}
+            {# GESTION PART #}
             
             <li>
                 <div class="text-muted small fw-bold text-uppercase px-3">
-                    messages
+                    établissement
                 </div>
             </li>
 
             <li>
-                <a href="#" class="nav-link px-3 ">
-                <span class="me-2">
-                    <i class="far fa-address-card"></i>
+                <a class="nav-link px-3 sidebar-link " data-bs-toggle="collapse" href="#collapseSchool" role="button" aria-expanded="false" aria-controls="collapseSchool">
+                <span class="me-2"> <i class="fas fa-school"></i> </span>
+                <span>Gestion classes</span>
+                <span class="right-icon ms-auto"> 
+                    <i class="bi bi-chevron-down"></i>
                 </span>
-                <span>Contacts</span>
                 </a>
+                <div class="collapse" id="collapseSchool">
+                    <div>
+                        <ul class="navbar-nav ps-3">
+                            <li>
+                                <a href="#" class="nav-link px-3">
+                                    <span class="me-2"> <i class="fas fa-pen-fancy"></i> </span>
+                                    <span>Ajouter une classe</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{path('classroom_home')}} " class="nav-link px-3">
+                                    <span class="me-2"><i class="fas fa-chalkboard"></i></span>
+                                    <span>Liste des classes</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
             </li>
 
             <li>
@@ -99,15 +118,6 @@
                     <i class="fas fa-envelope-open-text"></i>
                 </span>
                 <span>Messagerie Privée</span>
-                </a>
-            </li>
-            {# ADMIN PART #}
-            <li>
-                <a href="{{path("announce_add")}}" class="nav-link px-3 ">
-                <span class="me-2">
-                    <i class="fas fa-bullhorn"></i>
-                </span>
-                <span>Poster une annonce</span>
                 </a>
             </li>
 
