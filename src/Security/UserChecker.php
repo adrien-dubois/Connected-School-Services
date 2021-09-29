@@ -2,6 +2,7 @@
 
 namespace App\Security;
 
+use App\Entity\Teacher;
 use App\Entity\User as AppUser;
 use Symfony\Component\Security\Core\Exception\AccountExpiredException;
 use Symfony\Component\Security\Core\Exception\CustomUserMessageAccountStatusException;
@@ -12,7 +13,7 @@ class UserChecker implements UserCheckerInterface
 {
     public function checkPreAuth(UserInterface $user): void
     {
-        if (!$user instanceof AppUser) {
+        if (!$user instanceof AppUser || !$user instanceof Teacher ) {
             return;
         }
         // Verification of the activation Token in the DB

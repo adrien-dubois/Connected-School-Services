@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\TeacherRepository;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -12,6 +13,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass=TeacherRepository::class)
+ * @UniqueEntity(fields={"email"}, message="Il y a déjà un compte avec cet email")
  */
 class Teacher implements UserInterface, PasswordAuthenticatedUserInterface
 {
@@ -25,6 +27,7 @@ class Teacher implements UserInterface, PasswordAuthenticatedUserInterface
 
     /**
      * @ORM\Column(type="string", length=180, unique=true)
+     * 
      * @Groups({"user", "teacher", "classroom"})
      */
     private $email;
@@ -71,6 +74,11 @@ class Teacher implements UserInterface, PasswordAuthenticatedUserInterface
      * @Groups({"teacher"})
      */
     private $classroom;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $activation_token;
 
     public function __construct()
     {
@@ -121,7 +129,7 @@ class Teacher implements UserInterface, PasswordAuthenticatedUserInterface
     {
         $roles = $this->roles;
         // guarantee every user at least has ROLE_USER
-        $roles[] = 'ROLE_USER';
+        // $roles[] = 'ROLE_USER';
 
         return array_unique($roles);
     }
@@ -236,6 +244,18 @@ class Teacher implements UserInterface, PasswordAuthenticatedUserInterface
     public function removeClassroom(Classroom $classroom): self
     {
         $this->classroom->removeElement($classroom);
+
+        return $this;
+    }
+
+    public function getActivationToken(): ?string
+    {
+        return $this->activation_token;
+    }
+
+    public function setActivationToken(?string $activation_token): self
+    {
+        $this->activation_token = $activation_token;
 
         return $this;
     }
