@@ -3,6 +3,7 @@
 namespace App\EventListener;
 
 use App\Entity\User;
+use App\Repository\TeacherRepository;
 use App\Repository\UserRepository;
 use Lexik\Bundle\JWTAuthenticationBundle\Event\AuthenticationSuccessEvent;
 use Symfony\Component\Security\Core\Security;
@@ -11,11 +12,13 @@ use Symfony\Component\Security\Core\User\UserInterface;
 class AuthenticationSuccessListener {
 
     private $repository;
+    private $teacherRepository;
 
     // Construct the repo to get it into the method, neither the method wouldn't take it
-    public function __construct(UserRepository $repository)
+    public function __construct(UserRepository $repository, TeacherRepository $teacherRepository)
     {
         $this->repository = $repository;
+        $this->teacherRepository = $teacherRepository;
     }
 
     public function onAuthenticationSuccessResponse(AuthenticationSuccessEvent $event)
@@ -39,6 +42,11 @@ class AuthenticationSuccessListener {
             $grade = $class->getGrade();
             $classId = $class->getId();
         }
+        elseif($role == ["ROLE_TEACHER"]){
+            $teacher = $this->teacherRepository->findOneBy(['email'=>$users]);
+            $class = $test->getClassroom();
+            $discipline = $teacher->getDiscipline();
+        }
         else{
             $class = $test->getClassroom();
         }
@@ -61,12 +69,21 @@ class AuthenticationSuccessListener {
                 ]
             );
         }
+        elseif($role == ["ROLE_TEACHER"]){
+            $data['data'] = array(
+                'firstname' => $first,
+                'lastname' => $last,
+                'roles' => $user->getRoles(),
+                'classroom' => $class,
+                'discipline' => $discipline
+            );
+        }
         else{
             $data['data'] = array(
                 'firstname' => $first,
                 'lastname' => $last,
                 'roles' => $user->getRoles(),
-                'classroom' => $class
+                'classroom' => $class,
             );
         }
         // Set it in the event

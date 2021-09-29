@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\TeacherRepository;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -12,6 +13,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass=TeacherRepository::class)
+ * @UniqueEntity(fields={"email"}, message="Il y a déjà un compte avec cet email")
  */
 class Teacher implements UserInterface, PasswordAuthenticatedUserInterface
 {
@@ -25,6 +27,7 @@ class Teacher implements UserInterface, PasswordAuthenticatedUserInterface
 
     /**
      * @ORM\Column(type="string", length=180, unique=true)
+     * 
      * @Groups({"user", "teacher", "classroom"})
      */
     private $email;
