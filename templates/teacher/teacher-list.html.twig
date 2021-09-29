@@ -32,8 +32,8 @@
                         <td>{{teacher.email}}</td>
                         <td>
                             <a style="text-decoration: none; color: white;" href="{{ path('teacher_show', {id: teacher.id})}}" class="card-link badge rounded-pill bg-secondary">Détail</a>
-                            <a style="text-decoration: none; color: white; " href="#" class="card-link badge rounded-pill bg-success mx-2">Edit</a>
-                            <a style="text-decoration: none; color: white; " href="#" class="card-link badge rounded-pill bg-danger mx-2">Suppr.</a>
+                            <a style="text-decoration: none; color: white; " href="{{path('teacher_update', {id: teacher.id})}} " class="card-link badge rounded-pill bg-success mx-2">Edit</a>
+                            <a style="text-decoration: none; color: white; " href="{{path('teacher_delete', {id: teacher.id})}} " class="card-link badge rounded-pill bg-danger mx-2">Suppr.</a>
                         </td>
                     </tr>
                 {% endfor %}

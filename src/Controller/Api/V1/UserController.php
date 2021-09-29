@@ -15,7 +15,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 /**
  * @Route("/api/v1/user", name="api_v1_user_", requirements={"id"="\d+"})
- * @IsGranted("ROLE_TEACHER")
+ * @IsGranted("ROLE_ADMIN")
  */
 class UserController extends AbstractController
 {

@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Discipline;
 use App\Entity\Teacher;
+use App\Form\RegistrationFormType;
 use App\Form\TeacherType;
 use App\Repository\DisciplineRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -118,5 +119,57 @@ class TeacherController extends AbstractController
             'formView'=>$form->createView()
         ]);
     }
+
+    /**
+     * Edit an existing teacher by its ID
+     * 
+     * @Route("/{id}/update", name="update", methods={"GET", "POST"})
+     *
+     * @param Request $request
+     * @param Teacher $teacher
+     * @return void
+     */
+    public function update(Request $request, Teacher $teacher)
+    {
+        $form = $this->createForm(RegistrationFormType::class, $teacher);
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid()){
+            $this->getDoctrine()->getManager()->flush();
+
+            $this->addFlash(
+                'success',
+                'Le professeur a bien été mis(e) à jour'  
+            );
+        }
+
+        return $this->render('teacher/update.html.twig', [
+            'teacher'=>$form->createView()
+        ]);
+    }
+
+    
+    /**
+     * Delete a teacher
+     * 
+     * @Route("/{id}/delete", name="delete", methods={"POST"})
+     *
+     * @param Teacher $teacher
+     * @return void
+     */
+    public function delete(Teacher $teacher)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $em->remove($teacher);
+        $em->flush();
+
+        $this->addFlash(
+            'success',
+            'Le professeur a bien été supprimé'
+        );
+
+        return $this->redirectToRoute('teacher_home');
+    }
+
 
 }
