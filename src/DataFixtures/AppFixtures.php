@@ -26,52 +26,52 @@ class AppFixtures extends Fixture
         $faker = \Faker\Factory::create('fr_FR');
            // on crée 15 élèves avec email,noms, prénoms, adresse, numero de tel et image "aléatoires" en français
            //we create 15 students with email, names, first names, address, phone number and "random" image in French
-           $userList = Array();
-           print 'creation des élèves ';
-           for ($i = 0; $i < 4; $i++) {
-               $user = new User();
-               $password = 'azertyu';
-               $user->setEmail($faker->email());
-               $user->setLastname($faker->lastName());
-               $user->setFirstname($faker->firstName());
-               //$user[$i]->setRoles($faker->randomDigit);
-               $user->setAdress($faker->address());
-               $user->setPhone($faker->phoneNumber());
-               $user->setImage($faker->image());
-               //$user->setCreatedAt($faker->dateTime($max = 'now', $timezone = null));
-               $user->setPassword(
-                $this->passwordHasher->hashPassword(
-                    $user,
-                    $password,
-                )); 
-               $userList[] = $user;
-               $manager->persist($user);
-           }
-           print '- GG BG -';
+        //    $userList = Array();
+        //    print 'creation des élèves ';
+        //    for ($i = 0; $i < 2; $i++) {
+        //        $user = new User();
+        //        $password = 'azertyu';
+        //        $user->setEmail($faker->email());
+        //        $user->setLastname($faker->lastName());
+        //        $user->setFirstname($faker->firstName());
+        //     //    $user[$i]->setRoles($faker->randomDigit);
+        //        $user->setAdress($faker->address());
+        //        $user->setPhone($faker->phoneNumber());
+        //        $user->setImage($faker->image());
+        //     //    $user->setCreatedAt($faker->dateTime($max = 'now', $timezone = null));
+        //        $user->setPassword(
+        //         $this->passwordHasher->hashPassword(
+        //             $user,
+        //             $password,
+        //         )); 
+        //        $userList[] = $user;
+        //        $manager->persist($user);
+        //    }
+        //    print '- GG BG -';
            
 
            // on crée 4 teachers avec email, noms, prénoms et une image "aléatoires" en français
              // we create 4 teachers with email, names, first names and a "random" image in French 
-            //  $teacherList = Array();
-            //  print 'creation des profs ';
-            //  for ($i = 0; $i < 4; $i++) {
-            //      $teacher = new Teacher();
-            //      $password = 'azertyu';
-            //      $teacher->setEmail($faker->email());
-            //      $teacher->setLastname($faker->lastName());
-            //      $teacher->setFirstname($faker->firstName());
-            //      $teacher[$i]->setRoles($faker->randomDigit);
-            //      $teacher->setImage($faker->image());
-            //      $teacher->setCreatedAt($faker->dateTime($max = 'now', $timezone = null));
-            //      $teacher->setPassword(
-            //       $this->passwordHasher->hashPassword(
-            //           $teacher,
-            //           $password,
-            //       )); 
-            //      $teacherList[] = $teacher;
-            //      $manager->persist($teacher);
-            //  }
-            //  print '- GG GB -';
+             $teacherList = Array();
+             print 'creation des profs ';
+             for ($i = 0; $i < 18; $i++) {
+                 $teacher = new Teacher();
+                 $password = 'azertyu';
+                 $teacher->setEmail($faker->email());
+                 $teacher->setLastname($faker->lastName());
+                 $teacher->setFirstname($faker->firstName());
+                //  $teacher[$i]->setRoles($faker->randomDigit);
+                 $teacher->setImage($faker->image());
+                //  $teacher->setCreatedAt($faker->dateTime($max = 'now', $timezone = null));
+                 $teacher->setPassword(
+                  $this->passwordHasher->hashPassword(
+                      $teacher,
+                      $password,
+                  )); 
+                 $teacherList[] = $teacher;
+                 $manager->persist($teacher);
+             }
+             print '- GG GB -';
 
            // on crée 4 salles de classes
            // we create 4 classrooms 
