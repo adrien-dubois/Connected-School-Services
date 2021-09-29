@@ -20,10 +20,10 @@
                             <a class="nolink nav-link {{(currentRoute == 'home')? 'active'}} " aria-current="page" href=" {{path('home')}} ">Accueil</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nolink nav-link" href="{{path('student_home')}}">Élèves</a>
+                            <a class="nav-link {{(currentRoute == 'student_home')? 'active' }} nolink" href="{{path('student_home')}}">Élèves</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nolink nav-link" href="#">Professeurs</a>
+                            <a class="nolink nav-link {{(currentRoute == 'teacher_home')? 'active'}} " href="{{path('teacher_home')}} ">Professeurs</a>
                         </li>
                     </ul>
                     
