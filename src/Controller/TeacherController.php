@@ -131,7 +131,7 @@ class TeacherController extends AbstractController
      */
     public function update(Request $request, Teacher $teacher)
     {
-        $form = $this->createForm(RegistrationFormType::class, $teacher);
+        $form = $this->createForm(TeacherType::class, $teacher);
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid()){
@@ -144,7 +144,7 @@ class TeacherController extends AbstractController
         }
 
         return $this->render('teacher/update.html.twig', [
-            'teacher'=>$form->createView()
+            'formView'=>$form->createView()
         ]);
     }
 
@@ -152,7 +152,7 @@ class TeacherController extends AbstractController
     /**
      * Delete a teacher
      * 
-     * @Route("/{id}/delete", name="delete", methods={"POST"})
+     * @Route("/{id}/delete", name="delete", methods={"GET","POST"})
      *
      * @param Teacher $teacher
      * @return void

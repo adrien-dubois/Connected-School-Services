@@ -28,15 +28,15 @@ class AuthenticationSuccessListener {
         $user = $event->getUser();
         // Take the username according the UserInterface
         $users = $user->getUserIdentifier();
-        // Find the good user with the username/email
-        $test = $this->repository->findOneBy(['email'=>$users]);
         // And get the datas we need
-        $first = $test->getFirstname();
-        $last = $test->getLastname();
         $role = $user->getRoles();
-        $id = $test->getId();
-
+        
         if($role == ["ROLE_USER"]){
+            // Find the good user with the username/email
+            $test = $this->repository->findOneBy(['email'=>$users]);
+            $first = $test->getFirstname();
+            $last = $test->getLastname();
+            $id = $test->getId();
             $class = $test->getClassroom();
             $letter = $class->getLetter();
             $grade = $class->getGrade();
@@ -44,10 +44,18 @@ class AuthenticationSuccessListener {
         }
         elseif($role == ["ROLE_TEACHER"]){
             $teacher = $this->teacherRepository->findOneBy(['email'=>$users]);
-            $class = $test->getClassroom();
+            $first = $teacher->getFirstname();
+            $last = $teacher->getLastname();
+            $id = $teacher->getId();
+            $class = $teacher->getClassroom();
             $discipline = $teacher->getDiscipline();
+            $matiere = $discipline->getName();
         }
         else{
+            $test = $this->repository->findOneBy(['email'=>$users]);
+            $first = $test->getFirstname();
+            $last = $test->getLastname();
+            $id = $test->getId();
             $class = $test->getClassroom();
         }
         // Check and verify if $user is well part of UserInterface
@@ -75,7 +83,7 @@ class AuthenticationSuccessListener {
                 'lastname' => $last,
                 'roles' => $user->getRoles(),
                 'classroom' => $class,
-                'discipline' => $discipline
+                'discipline' => $matiere
             );
         }
         else{
