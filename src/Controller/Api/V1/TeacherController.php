@@ -3,6 +3,7 @@
 namespace App\Controller\Api\V1;
 
 use App\Entity\Teacher;
+use App\Repository\ClassroomRepository;
 use App\Repository\TeacherRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -55,6 +56,24 @@ class TeacherController extends AbstractController
 
         return $this->json($teacher, 200, [], [
             'groups' => 'teacher'
+        ]);
+    }
+
+    /**
+     * Undocumented function
+     * @Route("/classroom/{id}", name="classroom", methods={"GET"})
+     * @param integer $id
+     * @param TeacherRepository $teacherRepository
+     * @param ClassroomRepository $classroomRepository
+     * @return JsonResponse
+     */
+    public function sortedby(int $id, TeacherRepository $teacherRepository, ClassroomRepository $classroomRepository)
+    {
+        $teacher = $teacherRepository->findbyClassroom($id);
+
+
+        return $this->json($teacher, 200, [], [
+            'groups'=> 'teacher'
         ]);
     }
     /**

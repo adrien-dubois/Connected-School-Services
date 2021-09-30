@@ -26,6 +26,7 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Validator\Constraints\File;
 use Symfony\Component\Validator\Constraints\NotBlank;
+use Symfony\Component\Validator\Constraints\NotNull;
 
 /**
  * @Route("/api/v1/announce", name="api_v1_announce_", requirements={"id"="\d+"})
@@ -120,9 +121,21 @@ class AnnounceController extends AbstractController
         ]);
     }
 
-    public function lessons(AnnounceRepository $repository)
+    /**
+     * Display homeworks order by expiration date
+     * 
+     * @Route("/homework", name="homework", methods={"GET"} )
+     *
+     * @param AnnounceRepository $repository
+     * @return void
+     */
+    public function homework(AnnounceRepository $repository)
     {
-        // $lessons = $repository->findBy([],['homework'=>'expireAt']);
+        $homework = $repository->findAllHomework();
+        
+        return $this->json($homework, 200, [],[
+            'groups'=>"announce"
+        ]);
     }
 
     /**

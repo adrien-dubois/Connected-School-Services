@@ -4,7 +4,10 @@ namespace App\Repository;
 
 use App\Entity\Announce;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
+
+use function Symfony\Component\DependencyInjection\Loader\Configurator\expr;
 
 /**
  * @method Announce|null find($id, $lockMode = null, $lockVersion = null)
@@ -37,6 +40,15 @@ class AnnounceRepository extends ServiceEntityRepository
                     ->setParameter(':id', "%$classroom%")
                     ->getQuery()
                     ->getResult();
+    }
+
+    public function findAllHomework()
+    {
+        return $this->createQueryBuilder('a')
+                    ->where('a.homework IS NOT NULL')
+                    ->orderBy('a.expireAt', 'ASC')
+                    ->getQuery()
+                    ->getResult();         
     }
 
     // /**
