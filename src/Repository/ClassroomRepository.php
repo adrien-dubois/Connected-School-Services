@@ -23,11 +23,23 @@ class ClassroomRepository extends ServiceEntityRepository
     {
         return $this->createQueryBuilder('classroom')
                     ->join('classroom.teachers', 'teacher')
-                    ->where('teacher.id LIKE :id')
+                    ->where('classroom.id LIKE :id')
                     ->setParameter(':id', "%$teacher%")
                     ->getQuery()
                     ->getResult();
     }
+
+    public function findByUser($users)
+    {
+        return $this->createQueryBuilder('classrooms')
+                    ->join('classrooms.users', 'users')
+                    ->where('classrooms.id LIKE :id')
+                    ->setParameter(':id', "%$users%")
+                    ->getQuery()
+                    ->getResult();
+    }
+
+    
 
     // /**
     //  * @return Classroom[] Returns an array of Classroom objects

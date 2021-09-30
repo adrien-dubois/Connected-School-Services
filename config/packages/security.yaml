@@ -58,7 +58,7 @@ security:
         - { path: ^/api/login, roles: PUBLIC_ACCESS }
         - { path: ^/api/v1/homeannounce, roles: PUBLIC_ACCESS }
         - { path: ^/api,       roles: IS_AUTHENTICATED_FULLY }
-        # - { path: ^/admin, roles: ROLE_ADMIN }
+        # - { path: ^/, roles: ROLE_ADMIN }
         - { path: ^/profile, roles: ROLE_USER }
 
     role_hierarchy:
