@@ -70,7 +70,7 @@ class ClassroomController extends AbstractController
      * @param TeacherRepository $teacherRepository
      * @return void
      */
-    public function sortedByTeacher(int $id, ClassroomRepository $classroomRepository, TeacherRepository $teacherRepository)
+    public function sortedByTeacher(int $id, ClassroomRepository $classroomRepository)
     {
 
         $classroom = $classroomRepository->findByTeacher($id);

@@ -57,6 +57,7 @@ class TeacherController extends AbstractController
             'groups' => 'teacher'
         ]);
     }
+
     /**
      * Create a new teacher
      * @Route("/", name="add", methods={"POST"})
