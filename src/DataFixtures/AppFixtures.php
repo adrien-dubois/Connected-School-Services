@@ -52,27 +52,6 @@ class AppFixtures extends Fixture
 
            // on crée 4 teachers avec email, noms, prénoms et une image "aléatoires" en français
              // we create 4 teachers with email, names, first names and a "random" image in French 
-<<<<<<< HEAD
-           $teacherList = Array();
-           print 'creation des profs';
-           for ($i = 0; $i < 18; $i++) {
-               $teacher = new Teacher();
-               $teacher->setEmail($faker->email());
-               $teacher->setLastname($faker->lastName());
-               $teacher->setFirstname($faker->firstName());
-            //    $teacher->setRoles($faker->text(15));
-               $teacher->setImage($faker->image());
-               $teacher->setPassword(
-                $this->passwordHasher->hashPassword(
-                    $teacher,
-                    'azertyu',
-                )); 
-               $teacherList[] = $teacher;
-            //    $teacher[$i]->setCreatedAt($faker->date($format = Y-m-d, $Max = 'now')); 
-               $manager->persist($teacher);
-           }
-           print 'SUCCESS';
-=======
              $teacherList = Array();
              print 'creation des profs ';
              for ($i = 0; $i < 18; $i++) {
@@ -93,7 +72,6 @@ class AppFixtures extends Fixture
                  $manager->persist($teacher);
              }
              print '- GG GB -';
->>>>>>> aa8241a2a5fbb78cfaec640dcc9f2174dcf527f8
 
            // on crée 4 salles de classes
            // we create 4 classrooms 
@@ -184,27 +162,15 @@ class AppFixtures extends Fixture
     
 
     // on crée des cours 
-<<<<<<< HEAD
-    $lesson = Array();
-    print 'creation des cours ';
-    for ($i = 0; $i < 5; $i++){
-        $lesson = new Lesson;
-        $lesson->setContent($faker->text($maxNbChars = 100));
-        $lesson->setIsPrivate($faker->boolean($chanceOfGettingTrue = 0));
-        //$lesson->setIsPrivate($faker->);
-        $manager->persist($lesson);
-    }
-=======
     // $lesson = Array();
     // print 'creation des cours ';
     // for ($i = 0; $i < 5; $i++){
     //     $lesson = new Lesson;
     //     $lesson->setContent($faker->text($maxNbChars = 100));
     //     $lesson->setIsPrivate($faker->boolean($chanceOfGettingTrue = 0));
-    //     $lesson->setIsPrivate($faker->);
+    //     //$lesson->setIsPrivate($faker->);
     //     $manager->persist($lesson);
-    // }*/
->>>>>>> aa8241a2a5fbb78cfaec640dcc9f2174dcf527f8
+    // }
     
     $manager->flush();
     print '-SUCCESS-'; 
