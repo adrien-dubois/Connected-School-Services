@@ -58,6 +58,7 @@ class TeacherController extends AbstractController
             'groups' => 'teacher'
         ]);
     }
+
     /**
      * Undocumented function
      * @Route("/classroom/{id}", name="classroom", methods={"GET"})
