@@ -168,9 +168,9 @@ class AppFixtures extends Fixture
     //     $lesson = new Lesson;
     //     $lesson->setContent($faker->text($maxNbChars = 100));
     //     $lesson->setIsPrivate($faker->boolean($chanceOfGettingTrue = 0));
-    //     $lesson->setIsPrivate($faker->);
+    //     //$lesson->setIsPrivate($faker->);
     //     $manager->persist($lesson);
-    // }*/
+    // }
     
     $manager->flush();
     print '-SUCCESS-'; 

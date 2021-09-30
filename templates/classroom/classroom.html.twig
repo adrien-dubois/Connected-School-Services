@@ -14,11 +14,31 @@
 
         <div class="col-md-12">
             <ul style="width: 600px;" class="list-group list-group-flush mx-auto">
-                {% for class in classrooms %}
-                    <li class="list-group-item text-center"><a href="# " class="nolink">{{class.getName() }}</a> </li>
-                {% endfor %}
-            
+                    <li class="list-group-item text-center fw-bold fst-italic">Veuillez séléctionner un niveau :</li>
             </ul>
+            <table style="width: 800px;" class="table  list-group-flush mx-auto">
+            <tbody>
+                <tr>
+                    <th><a href="#" class="nolink"> 6 ème</a></th>
+                    <th><a href="#" class="nolink"> 5 ème</a></th>
+                    <th><a href="#" class="nolink"> 4 ème</a></th>
+                    <th><a href="#" class="nolink"> 3 ème</a></th>
+                </tr>
+            </tbody>
+            </table> 
+        </div>
+
+        <div class="col-md-12">
+            <ul class="list-group list-group-flush mx-auto" style="width: 300px;">
+                {% for class in classrooms %}
+                    {% if class.grade == 6 %}
+                   <li class="list-group-item text-center fst-italic">{{class.grade}} ème {{class.letter}}</li>
+                    {% endif %}
+                {% endfor %}
+            </ul>
+                
+            
+            
         </div>
 
     </div>

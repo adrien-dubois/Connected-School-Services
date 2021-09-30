@@ -21,39 +21,37 @@ class Teacher implements UserInterface, PasswordAuthenticatedUserInterface
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
-     * @Groups({"user", "teacher", "classroom"})
+     * @Groups({"user", "teacher", "classroomt"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=180, unique=true)
      * 
-     * @Groups({"user", "teacher", "classroom"})
+     * @Groups({"user", "teacher", "classroomt"})
      */
     private $email;
 
     /**
      * @ORM\Column(type="json")
-     * @Groups({"teacher"})
      */
     private $roles = [];
 
     /**
      * @var string The hashed password
      * @ORM\Column(type="string")
-     * @Groups({"teacher"})
      */
     private $password;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups({"user", "teacher", "classroom"})
+     * @Groups({"user", "teacher", "classroomt"})
      */
     private $firstname;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups({"user", "teacher", "classroom"})
+     * @Groups({"user", "teacher", "classroomt"})
      */
     private $lastname;
 

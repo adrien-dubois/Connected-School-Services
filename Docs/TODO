@@ -1,8 +1,7 @@
-Annonces devoirs trier par date expireAt
-
-Gestion des classes ( composition)
 Checker API éducation nationale
+Endpoint classroom par id de prof
 
+Annonces -> classroom ne passe pas
 
 ------------  DONE  -------------
 mettre à jour la liste des endpoints sur tous les cruds ( peut être tester avant dans insomnia)
@@ -18,6 +17,12 @@ Classer annonces par ID de classes
 Trier les classes par Id de professeur 
 Post annonce avec catégorie
 Post planning avec tous les autres ID
-
-
+Réparer l'erreur des logins teachers
+Ajout de l'id dans login_check
 Virer les annonces 
+Annonces trier par homework et par date expireAt
+Vérifier que un professeur puissse suprrimer les annonces / modifier / créer
+
+
+changer nom lessons par homework
+Gestion des classes ( composition) - WIP
