@@ -36,6 +36,16 @@ class TeacherRepository extends ServiceEntityRepository implements PasswordUpgra
         $this->_em->flush();
     }
 
+    public function findbyClassroom($classroom)
+    {
+        return $this->createQueryBuilder('teacher')
+                    ->join('teacher.classroom', 'classroom')
+                    ->where('teacher.id LIKE :id')
+                    ->setParameter(':id', "%$classroom%")
+                    ->getQuery()
+                    ->getResult();
+    }
+
     // /**
     //  * @return Teacher[] Returns an array of Teacher objects
     //  */

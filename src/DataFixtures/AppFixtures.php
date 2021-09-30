@@ -70,7 +70,7 @@ class AppFixtures extends Fixture
             //    $teacher[$i]->setCreatedAt($faker->date($format = Y-m-d, $Max = 'now')); 
                $manager->persist($teacher);
            }
-           print 'SUCCESS';/*
+           print 'SUCCESS';
 
            // on crée 4 salles de classes
            // we create 4 classrooms 
@@ -169,7 +169,7 @@ class AppFixtures extends Fixture
         $lesson->setIsPrivate($faker->boolean($chanceOfGettingTrue = 0));
         //$lesson->setIsPrivate($faker->);
         $manager->persist($lesson);
-    }*/
+    }
     
     $manager->flush();
     print '-SUCCESS-'; 

@@ -17,19 +17,19 @@ class Classroom
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
-     * @Groups({"user", "classroom", "planning", "announce"})
+     * @Groups({"user", "classroomu", "classroomt", "planning", "announce", "teacher"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups({"user", "classroom", "planning", "announce"})
+     * @Groups({"user", "classroomu", "classroomt", "planning", "announce", "teacher"})
      */
     private $letter;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups({"user", "classroom", "planning", "announce"})
+     * @Groups({"user", "classroomu", "classroomt", "planning", "announce", "teacher"})
      */
     private $grade;
 
@@ -52,12 +52,13 @@ class Classroom
 
     /**
      * @ORM\OneToMany(targetEntity=User::class, mappedBy="classroom")
+     * @Groups({"classroomu"})
      */
     private $users;
 
     /**
      * @ORM\ManyToMany(targetEntity=Teacher::class, mappedBy="classroom")
-     * @Groups({"classroom"})
+     * @Groups({"classroomt"})
      */
     private $teachers;
 
