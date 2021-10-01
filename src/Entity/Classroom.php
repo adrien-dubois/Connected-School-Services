@@ -17,19 +17,19 @@ class Classroom
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
-     * @Groups({"user", "classroomu", "classroomt", "planning", "announce", "teacher"})
+     * @Groups({"user", "classroomu", "classroomt", "planning", "announce", "teacher", "note"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups({"user", "classroomu", "classroomt", "planning", "announce", "teacher"})
+     * @Groups({"user", "classroomu", "classroomt", "planning", "announce", "teacher", "note"})
      */
     private $letter;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups({"user", "classroomu", "classroomt", "planning", "announce", "teacher"})
+     * @Groups({"user", "classroomu", "classroomt", "planning", "announce", "teacher", "note"})
      */
     private $grade;
 

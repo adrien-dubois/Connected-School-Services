@@ -95,7 +95,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     /**
      * @ORM\ManyToOne(targetEntity=Classroom::class, inversedBy="users")
-     * @Groups({"user"})
+     * @Groups({"user", "note"})
      */
     private $classroom;
 

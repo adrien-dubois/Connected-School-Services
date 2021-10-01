@@ -83,13 +83,21 @@ class NoteController extends AbstractController
     }
 
 
+    /**
+     * Undocumented function
+     * 
+     * @Route("/sortedbyclassroom/{id}", name="sortedby_classroom", methods={"GET"})
+     *
+     * @param integer $id
+     * @param NoteRepository $noteRepository
+     * @param ClassroomRepository $classroomRepository
+     * @return void
+     */
     public function sortedByClassroom(int $id, NoteRepository $noteRepository, ClassroomRepository $classroomRepository)
     {
-        $classroom = $classroomRepository->find($id);
+        $classroom = $noteRepository->findByClassroom($id);
 
-        $notes = $noteRepository->findBy(['user'=>$classroom]);
-
-        return $this->json($notes, 200, [],[
+        return $this->json($classroom, 200, [],[
             'groups' => 'note'
         ]);
     }
