@@ -84,7 +84,7 @@ class NoteController extends AbstractController
 
 
     /**
-     * Undocumented function
+     * Order notes by classroom
      * 
      * @Route("/sortedbyclassroom/{id}", name="sortedby_classroom", methods={"GET"})
      *
