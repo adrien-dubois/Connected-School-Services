@@ -24,6 +24,7 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\Security\Core\Security;
 use Symfony\Component\Validator\Constraints\File;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Validator\Constraints\NotNull;
@@ -33,6 +34,14 @@ use Symfony\Component\Validator\Constraints\NotNull;
  */
 class AnnounceController extends AbstractController
 {
+
+    private $security;
+
+    public function __construct(Security $security)
+    {
+        $this->security = $security;
+    }
+
     /**
      * Endpoint for announce listing
      * 
@@ -151,8 +160,6 @@ class AnnounceController extends AbstractController
      */
     public function add(Request $request, SerializerInterface $serializer, ValidatorInterface $validator)
     {
-
-
         // we take back the JSON
         $jsonData = $request->getContent();
 
@@ -171,6 +178,10 @@ class AnnounceController extends AbstractController
         if (count($errors) > 0) {
             return $this->json($errors, 400);
         }
+
+        $teacher = $this->security->getUser();
+
+        $announce->setTeacher($teacher);
 
         // Decode the json request to get the image part into an array
         $data = json_decode($request->getContent(), true);
@@ -197,18 +208,19 @@ class AnnounceController extends AbstractController
      * Can edit an existing announce by its ID
      * 
      * @Route("/{id}", name="edit", methods={"PUT", "PATCH"})
-     * @IsGranted("ROLE_TEACHER")
      *
      * @return JsonResponse
      */
-    public function edit(int $id, AnnounceRepository $announceRepository, Request $request, SerializerInterface $serializer)
+    public function edit(Announce $announce, Request $request, SerializerInterface $serializer)
     {
+        // This method will allows to access to the update method
+        $this->denyAccessUnlessGranted('edit', $announce, 'Vous n\'êtes pas l\'auteur de cette annonce.');
+
         $jsonData = $request->getContent();
         
-        $announce = $announceRepository->find($id);
         if(!$announce){
             return $this->json([
-                'errors' => ['message'=>'L\'annonce numéro' .$id . 'n\'existe pas']
+                'errors' => ['message'=>'Cette annonce n\'existe pas']
             ], 404
             );
         }
