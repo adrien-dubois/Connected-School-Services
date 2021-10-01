@@ -37,6 +37,7 @@ class AnnounceController extends AbstractController
 
     private $security;
 
+    // Construct the security in the purpose to get the current poster of the announce, for the voter
     public function __construct(Security $security)
     {
         $this->security = $security;
@@ -179,8 +180,10 @@ class AnnounceController extends AbstractController
             return $this->json($errors, 400);
         }
 
+        // get the current teacher which is posting an announce for the voter, to check if we are the creator of it
         $teacher = $this->security->getUser();
 
+        // We set the author ID in the Teacher field
         $announce->setTeacher($teacher);
 
         // Decode the json request to get the image part into an array
@@ -256,9 +259,11 @@ class AnnounceController extends AbstractController
      * @param AnnounceRepository $announceRepository
      * @return void
      */
-    public function delete(int $id, AnnounceRepository $announceRepository)
+    public function delete(Announce $announce)
     {
-        $announce = $announceRepository->find($id);
+        // This proetection will cehck by the voter if we are allowed to delete the announce
+        $this->denyAccessUnlessGranted('delete', $announce, 'Vous n\'êtes pas le rédacteur de cette annonce');
+
         if(!$announce){
             return $this->json([
                 'error' => 'Cette annonce n\'existe pas'
