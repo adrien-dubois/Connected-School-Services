@@ -54,7 +54,7 @@ class AppFixtures extends Fixture
              // we create 4 teachers with email, names, first names and a "random" image in French 
              $teacherList = Array();
              print 'creation des profs ';
-             for ($i = 0; $i < 18; $i++) {
+             for ($i = 0; $i < 22; $i++) {
                  $teacher = new Teacher();
                  $password = 'azertyu';
                  $teacher->setEmail($faker->email());
