@@ -60,7 +60,7 @@ class TeacherController extends AbstractController
     }
 
     /**
-     * Undocumented function
+     * Didslay classroom linked to the teacher
      * @Route("/classroom/{id}", name="classroom", methods={"GET"})
      * @param integer $id
      * @param TeacherRepository $teacherRepository
