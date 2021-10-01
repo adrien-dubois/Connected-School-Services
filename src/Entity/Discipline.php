@@ -17,13 +17,13 @@ class Discipline
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
-     * @Groups({"lesson", "discipline", "planning", "note"})
+     * @Groups({"lesson", "discipline", "planning", "note", "teacher"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups({"lesson", "discipline", "planning", "note"})
+     * @Groups({"lesson", "discipline", "planning", "note", "teacher"})
      */
     private $name;
 

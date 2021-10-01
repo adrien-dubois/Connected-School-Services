@@ -1,7 +1,7 @@
 Checker API éducation nationale
-Endpoint classroom par id de prof
 
-Annonces -> classroom ne passe pas
+
+Voters
 
 ------------  DONE  -------------
 mettre à jour la liste des endpoints sur tous les cruds ( peut être tester avant dans insomnia)
@@ -22,7 +22,10 @@ Ajout de l'id dans login_check
 Virer les annonces 
 Annonces trier par homework et par date expireAt
 Vérifier que un professeur puissse suprrimer les annonces / modifier / créer
+Endpoint classroom par id de prof
 
 
+Annonces -> classroom ne passe pas
 changer nom lessons par homework
 Gestion des classes ( composition) - WIP
+

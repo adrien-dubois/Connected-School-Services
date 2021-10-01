@@ -78,11 +78,17 @@ class Teacher implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private $activation_token;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Announce::class, mappedBy="teacher")
+     */
+    private $announces;
+
     public function __construct()
     {
         $this->classroom = new ArrayCollection();
         $this->createdAt = new \DateTimeImmutable();
         $this->roles = array ('ROLE_TEACHER');
+        $this->announces = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -254,6 +260,36 @@ class Teacher implements UserInterface, PasswordAuthenticatedUserInterface
     public function setActivationToken(?string $activation_token): self
     {
         $this->activation_token = $activation_token;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Announce[]
+     */
+    public function getAnnounces(): Collection
+    {
+        return $this->announces;
+    }
+
+    public function addAnnounce(Announce $announce): self
+    {
+        if (!$this->announces->contains($announce)) {
+            $this->announces[] = $announce;
+            $announce->setTeacher($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAnnounce(Announce $announce): self
+    {
+        if ($this->announces->removeElement($announce)) {
+            // set the owning side to null (unless already changed)
+            if ($announce->getTeacher() === $this) {
+                $announce->setTeacher(null);
+            }
+        }
 
         return $this;
     }

@@ -92,6 +92,11 @@ class Announce
      */
     private $classrooms;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Teacher::class, inversedBy="announces")
+     */
+    private $teacher;
+
     public function __construct()
     {
         $this->category = new ArrayCollection();
@@ -266,4 +271,17 @@ class Announce
             $this->updatedAt = new \DateTimeImmutable();
         }
     }
+
+    public function getTeacher(): ?Teacher
+    {
+        return $this->teacher;
+    }
+
+    public function setTeacher(?Teacher $teacher): self
+    {
+        $this->teacher = $teacher;
+
+        return $this;
+    }
+
 }
