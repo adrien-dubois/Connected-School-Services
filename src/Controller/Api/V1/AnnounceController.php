@@ -183,8 +183,14 @@ class AnnounceController extends AbstractController
         // get the current teacher which is posting an announce for the voter, to check if we are the creator of it
         $teacher = $this->security->getUser();
 
-        // We set the author ID in the Teacher field
-        $announce->setTeacher($teacher);
+        $role = $teacher->getRoles();
+
+        if($role == ['ROLE_TEACHER']){
+
+            // We set the author ID in the Teacher field
+            $announce->setTeacher($teacher);
+        }
+
 
         // Decode the json request to get the image part into an array
         $data = json_decode($request->getContent(), true);
