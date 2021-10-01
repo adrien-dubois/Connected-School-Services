@@ -50,6 +50,7 @@ class AuthenticationSuccessListener {
             $class = $teacher->getClassroom();
             $discipline = $teacher->getDiscipline();
             $matiere = $discipline->getName();
+            $disciplineId = $discipline->getId();
         }
         else{
             $test = $this->repository->findOneBy(['email'=>$users]);
@@ -84,6 +85,7 @@ class AuthenticationSuccessListener {
                 'lastname' => $last,
                 'roles' => $user->getRoles(),
                 'classroom' => $class,
+                'discipline_id'=>$disciplineId,
                 'discipline' => $matiere
             );
         }
