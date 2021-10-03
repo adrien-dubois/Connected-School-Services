@@ -118,7 +118,9 @@ class LessonController extends AbstractController
         $em->persist($lesson);
         $em->flush();
 
-        return $this->json($lesson, 201);
+        return $this->json($lesson, 201, [],[
+            'groups'=>'lesson'
+        ]);
     }
 
     /**
