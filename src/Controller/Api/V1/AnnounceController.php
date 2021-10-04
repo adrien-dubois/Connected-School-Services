@@ -149,6 +149,24 @@ class AnnounceController extends AbstractController
     }
 
     /**
+     * Display homeworks of one class (by its id), order by expiration date
+     * 
+     * @Route("/homework/{id}", name="homework_classroom", methods={"GET"})
+     *
+     * @param integer $id
+     * @param AnnounceRepository $repository
+     * @return void
+     */
+    public function homeworkByClassroom(int $id, AnnounceRepository $repository)
+    {
+        $homework = $repository->findHomeworkByClassroom($id);
+
+        return $this->json($homework, 200, [],[
+            'groups'=>"announce"
+        ]);
+    }
+
+    /**
      * Can create a new announce
      * 
      * @Route("/", name="add", methods={"POST"})
