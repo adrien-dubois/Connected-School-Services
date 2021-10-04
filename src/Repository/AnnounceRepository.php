@@ -51,6 +51,18 @@ class AnnounceRepository extends ServiceEntityRepository
                     ->getResult();         
     }
 
+    public function findHomeworkByClassroom($classroom)
+    {
+        return $this->createQueryBuilder('a')
+                    ->andWhere('a.homework IS NOT NULL')
+                    ->join('a.classrooms', 'ac')
+                    ->andWhere('ac.id LIKE :id')
+                    ->setParameter(':id', "%$classroom%")
+                    ->orderBy('a.expireAt', 'ASC')
+                    ->getQuery()
+                    ->getResult();         
+    }
+
     // /**
     //  * @return Announce[] Returns an array of Announce objects
     //  */
