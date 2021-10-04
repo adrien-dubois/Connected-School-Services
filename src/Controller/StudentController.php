@@ -15,7 +15,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 /**
- * @Route("/student", name="student_")
+ * @Route("/backoffice/student", name="student_")
  * @IsGranted("ROLE_ADMIN")
  */
 class StudentController extends AbstractController
@@ -110,7 +110,7 @@ class StudentController extends AbstractController
                     $mailer->send($message);
 
                     $this->addFlash(
-                        'sucess',
+                        'success',
                         'Élève ajouté avec succès'
                     );
 

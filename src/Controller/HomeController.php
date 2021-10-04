@@ -14,6 +14,7 @@ class HomeController extends AbstractController
      * Display homepage
      * 
      * @Route("/", name="home")
+     * @IsGranted("ROLE_ADMIN")
      *
      * @return void
      */

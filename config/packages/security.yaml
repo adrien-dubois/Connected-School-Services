@@ -70,8 +70,9 @@ security:
     access_control:
         - { path: ^/api/login, roles: PUBLIC_ACCESS }
         - { path: ^/api/v1/homeannounce, roles: PUBLIC_ACCESS }
+        - { path: ^/activation, roles: PUBLIC_ACCESS }
         - { path: ^/api,       roles: IS_AUTHENTICATED_FULLY }
-        # - { path: ^/, roles: ROLE_ADMIN }
+        - { path: ^/backoffice, roles: ROLE_ADMIN }
         - { path: ^/profile, roles: ROLE_USER }
 
     role_hierarchy:

@@ -8,7 +8,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route("/classroom", name="classroom_", requirements={"id"="\d+"})
+ * @Route("/backoffice/classroom", name="classroom_", requirements={"id"="\d+"})
  */
 class ClassroomController extends AbstractController
 {
