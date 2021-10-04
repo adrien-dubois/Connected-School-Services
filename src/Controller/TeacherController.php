@@ -14,7 +14,7 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route("/teacher", name="teacher_", requirements={"id"="\d+"})
+ * @Route("/backoffice/teacher", name="teacher_", requirements={"id"="\d+"})
  */
 class TeacherController extends AbstractController
 {
