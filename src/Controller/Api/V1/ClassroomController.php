@@ -18,6 +18,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 /**
  * 
  * @Route("/api/v1/classroom", name="api_v1_classroom_", requirements={"id"="\d+"})
+ * @IsGranted("ROLE_TEACHER")
  */
 class ClassroomController extends AbstractController
 {
@@ -105,7 +106,6 @@ class ClassroomController extends AbstractController
     /**
      * Create a new classroom
      * @Route("/", name="add", methods={"POST"})
-     * @IsGranted("ROLE_TEACHER")
      * 
      * @param Request $request
      * @param SerializerInterface $serializerInterface
@@ -135,7 +135,6 @@ class ClassroomController extends AbstractController
      * Update a classroom by its ID with PUT or PATCH method
      * 
      * @Route("/{id}", name="edit", methods={"PUT", "PATCH"})
-     * @IsGranted("ROLE_TEACHER")
      * 
      * @param integer $id
      * @param ClassroomRepository $classroomRepository
@@ -173,7 +172,7 @@ class ClassroomController extends AbstractController
      * Delete a classroom
      *
      * @Route("/{id}", name="delete", methods={"DELETE"})
-     * @IsGranted("ROLE_TEACHER")
+     * 
      * @param integer $id
      * @param ClassroomRepository $classroomRepository
      * @return JsonResponse
