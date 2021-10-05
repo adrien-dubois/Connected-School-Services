@@ -1,5 +1,3 @@
-Checker API éducation nationale
-mot de passe oublié
 backoffice
 
 
@@ -8,3 +6,4 @@ backoffice
 élèves peut accéder a la liste des classes
 liste des élèves par classe -> ajouter prénoms
 Endpoint homework announce + id classroom
+mot de passe oublié

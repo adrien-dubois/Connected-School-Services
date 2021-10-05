@@ -25,4 +25,22 @@ class ClassroomController extends AbstractController
             "classrooms"=>$classroomRepository->findAll()
         ]);
     }
+
+    /**
+     * Display classrooms by grade
+     * 
+     * @Route("/{id}/grade_list", name="list")
+     *
+     * @param integer $id
+     * @param ClassroomRepository $repository
+     * @return void
+     */
+    public function classList(int $id, ClassroomRepository $repository)
+    {
+        $list = $repository->findBy(['grade'=>$id], ['letter'=>'ASC']);
+
+        return $this->render('classroom/classlist.html.twig',[
+            "class"=>$list
+        ]);
+    }
 }
