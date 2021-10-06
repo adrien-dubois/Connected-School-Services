@@ -1,79 +1,30 @@
-<!DOCTYPE html>
-<html lang='fr'>
-    <head>
-        <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Connected School Services - Confirmation d'inscription</title>
+{% extends "base-front.html.twig" %}
+{% block title %}
+    Confirmation inscription - {{parent()}}
+{% endblock %}
+{% block content %}
+    <div class="col-md-12 py-5 mx-auto" style="width: 600px">
+        <h1 class="h3 mb-3 fw-bold fst-italic text-center">Activation de votre compte</h1>
+        
+        <p class="fst-italic">Afin de pouvoir activer votre compte, merci de définir le mot de passe de votre compte, qui vous sera personnel. Et votre identifiant de connexion sera votre email qui nous a été fourni. </p>
+    </div>
+    <div class="form-signin py-5">
 
-        {% block stylesheets %}
-            <script src="https://use.fontawesome.com/releases/v5.15.3/js/all.js" crossorigin="anonymous"></script>
-            <link rel="stylesheet" href="{{asset('css/bootstrap.css')}} ">
-            <link rel="stylesheet" href="{{asset('css/styles.css')}} ">
-            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
-            <link rel="preconnect" href="https://fonts.googleapis.com">
-            <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-            <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@200;300;400;500;600;700;800&display=swap" rel="stylesheet">
-        {% endblock %}
+        <div class="form-floating">
+        {{form_start(formView)}}
+        </div>
 
-    </head>
-
-    <body>
-    <header>
-        {# LOGO PART #}
-        <nav class="navbar navbar-expand-md  sticky-top" style="background-color: white; border-bottom: 1px solid #e9e8ea; box-shadow: 0px 15px 6px #e9e8ea">
-            <div class="container">
-                <img src="{{asset('img/logo-css.png')}}" style="width : 120px">
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-
-                {# PAGES LINKS #}
-
-                <div class="collapse navbar-collapse" id="navbarCollapse">
-                <h2 class="fw-bold mb-4 text-muted text-center mx-auto" style="text-shadow: 8px 6px 10px rgba(0, 0, 0, 0.350);">Connected School Services</h2>
-                </div>
-                    
-                
+            <div class="form-floating my-2">
+                {{ form_widget(formView.plainPassword.first)}}
+                {{ form_label(formView.plainPassword.first)}}
             </div>
-        </nav>
-    </header>
-    {% include "partials/_flash.html.twig" %}
-        <main>
-            <section class="row">
-                <div class="col-12 my-3 mx-auto text-center">
-                    <div>
-                        <section class="py-5 container">
-                            <div class="form-signin py-5">
-                                <h1 class="h3 mb-3 fw-bold fst-italic text-center">Activation de votre compte</h1>
-                                
-                                <p class="fst-italic">Afin de pouvoir activer votre compte, merci de définir le mot de passe de votre compte, qui vous sera personnel. Et votre identifiant de connexion sera votre email qui nous a été fourni. </p>
+            <div class="form-floating my-2">
+                {{ form_widget(formView.plainPassword.second)}}
+                {{ form_label(formView.plainPassword.second)}}
+            </div>
 
-                                <div class="form-floating">
-                                {{form_start(formView)}}
-                                </div>
+            <button type="submit" class="w-100 btn btn-lg btn-secondary">Confirmation</button>
+        {{form_end(formView)}}
+    </div>
 
-                                    <div class="form-floating my-2">
-                                        {{ form_widget(formView.plainPassword.first)}}
-                                        {{ form_label(formView.plainPassword.first)}}
-                                    </div>
-                                    <div class="form-floating my-2">
-                                        {{ form_widget(formView.plainPassword.second)}}
-                                        {{ form_label(formView.plainPassword.second)}}
-                                    </div>
-
-                                    <button type="submit" class="w-100 btn btn-lg btn-secondary">Confirmation</button>
-                                {{form_end(formView)}}
-                            </div>
-                        </section>
-                    </div>
-                </div>
-            </section>
-        </main>
-        {% block javascripts %}
-            <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
-            <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
-            <script src="{{asset('js/bootstrap.js')}} "></script>
-        {% endblock %}
-    </body>
-</html>
+{% endblock %}

@@ -88,7 +88,7 @@ class RegistrationController extends AbstractController
         $resetForm->handleRequest($request);
 
         if($resetForm->isSubmitted() && $resetForm->isValid()){
-            $user->setActivationToken('');
+            $user->setActivationToken(null);
             $user->setPassword(
                 $userPasswordHasherInterface->hashPassword(
                     $user,
