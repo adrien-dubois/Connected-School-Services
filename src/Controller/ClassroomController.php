@@ -2,8 +2,10 @@
 
 namespace App\Controller;
 
+use App\Entity\Classroom;
 use App\Repository\ClassroomRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -42,5 +44,12 @@ class ClassroomController extends AbstractController
         return $this->render('classroom/classlist.html.twig',[
             "class"=>$list
         ]);
+    }
+
+    public function create(Request $request)
+    {
+        $class = new Classroom();
+
+        
     }
 }
