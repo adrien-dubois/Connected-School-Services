@@ -38,6 +38,23 @@ class LessonController extends AbstractController
     }
 
     /**
+     * Get lesson list order by title
+     * 
+     * @Route("/orderByTitle", name="order_by_title", methods={"GET"})
+     *
+     * @param LessonRepository $lessonRepository
+     * @return Response
+     */
+    public function orderByName(LessonRepository $lessonRepository):Response
+    {
+        $lessons = $lessonRepository->findBy([],['title'=>'ASC']);
+
+        return $this->json($lessons, 200, [], [
+            'groups'=>'lesson'
+        ]);
+    }
+
+    /**
      * Get a lesson by its ID
      * 
      * @Route("/{id}", name="show", methods={"GET"})
