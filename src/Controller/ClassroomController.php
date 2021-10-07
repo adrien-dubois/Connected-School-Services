@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Classroom;
+use App\Form\ClassroomType;
 use App\Repository\ClassroomRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -46,10 +47,37 @@ class ClassroomController extends AbstractController
         ]);
     }
 
+    /**
+     * Create a new classroom
+     * 
+     * @Route("/add", name="add", methods={"GET", "POST"})
+     *
+     * @param Request $request
+     * @return void
+     */
     public function create(Request $request)
     {
         $class = new Classroom();
 
-        
+        $form = $this->createForm(ClassroomType::class, $class);
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid){
+
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($class);
+            $em->flush();
+
+            $this->addFlash(
+                'success',
+                'La nouvelle classe a bien été ajoutée'
+            );
+
+            return $this->redirectToRoute('classroom_home');
+        }
+
+        return $this->render('classroom/add.html.twig',[
+            'formView'=>$form->createView()
+        ]);
     }
 }
