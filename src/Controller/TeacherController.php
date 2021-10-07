@@ -141,6 +141,8 @@ class TeacherController extends AbstractController
                 'success',
                 'Le professeur a bien été mis(e) à jour'  
             );
+
+            return $this->redirectToRoute('home');
         }
 
         return $this->render('teacher/update.html.twig', [
