@@ -3,7 +3,10 @@
 namespace App\Controller;
 
 use App\Entity\Classroom;
+use App\Entity\Teacher;
+use App\Entity\User;
 use App\Form\ClassroomType;
+use App\Form\UserClassType;
 use App\Repository\ClassroomRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -62,21 +65,57 @@ class ClassroomController extends AbstractController
         $form = $this->createForm(ClassroomType::class, $class);
         $form->handleRequest($request);
 
-        if($form->isSubmitted() && $form->isValid){
+        if($form->isSubmitted() && $form->isValid()){
 
             $em = $this->getDoctrine()->getManager();
             $em->persist($class);
             $em->flush();
+
+            $id = $class->getId();
 
             $this->addFlash(
                 'success',
                 'La nouvelle classe a bien été ajoutée'
             );
 
-            return $this->redirectToRoute('classroom_home');
+            return $this->redirectToRoute('classroom_add_next',[
+                'id'=>$id
+            ]);
         }
 
         return $this->render('classroom/add.html.twig',[
+            'formView'=>$form->createView(),
+        ]);
+    }
+
+    /**
+     * Continue classroom creation with adding students
+     * 
+     * @Route("/{id}/add", name="add_next", methods={"GET", "POST"})
+     *
+     * @param integer $id
+     * @param Request $request
+     * @param ClassroomRepository $repository
+     * @return void
+     */
+    public function createNext(Classroom $class, Request $request, ClassroomRepository $repository)
+    {
+        $form = $this->createForm(UserClassType::class, $class);
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid()){
+
+            $this->getDoctrine()->getManager()->flush();
+
+            $this->addFlash(
+                'success',
+                'Les élèves ont bien été ajoutés'
+            );
+
+            return $this->redirectToRoute('home');
+        }
+
+        return $this->render('classroom/next.html.twig',[
             'formView'=>$form->createView()
         ]);
     }
