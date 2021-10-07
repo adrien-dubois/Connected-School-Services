@@ -128,7 +128,9 @@ class NoteController extends AbstractController
         $em->persist($note);
         $em->flush();
 
-        return $this->json($note, 201);
+        return $this->json($note, 201,[],[
+            'groups'=>'note'
+        ]);
     }
 
     /**
