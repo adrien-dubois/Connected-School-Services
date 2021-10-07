@@ -15,23 +15,14 @@
                 {# PAGES LINKS #}
 
                 <div class="collapse navbar-collapse" id="navbarCollapse">
-                    <ul class="navbar-nav me-auto mb-2 mb-md-0 mx-auto">
-                        <li class="nav-item">
-                            <a class="nolink nav-link {{(currentRoute == 'home')? 'active'}} " aria-current="page" href=" {{path('home')}} ">Accueil</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link {{(currentRoute == 'student_home')? 'active' }} nolink" href="{{path('student_home')}}">Élèves</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nolink nav-link {{(currentRoute == 'teacher_home')? 'active'}} " href="{{path('teacher_home')}} ">Professeurs</a>
-                        </li>
-                    </ul>
+                    <h2 class="fw-bold mb-4 text-center mx-auto" style="text-shadow: 8px 8px 6px rgba(0, 0, 0, 0.350);">CSS - Administration</h2>
+                </div>
                     
 
                     <div class="d-flex">
                         {% if app.user %}
                             <a class="btn btn-outline-secondary mx-2" href=" {{path('app_logout')}} "><i class="far fa-user"></i></a>
-                            <p class="my-2 fw-bold" style="color: grey;"> 
+                            <p class="my-2 fw-bold"> 
                             {{app.user.firstname}} {{app.user.lastname}} 
                             </p>
                             

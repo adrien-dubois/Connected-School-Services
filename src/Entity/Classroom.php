@@ -17,19 +17,19 @@ class Classroom
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
-     * @Groups({"user", "classroomu", "classroomt", "planning", "announce", "teacher", "note"})
+     * @Groups({"user", "classroomu", "classroomt", "planning", "announce", "teacher", "note", "classroom"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups({"user", "classroomu", "classroomt", "planning", "announce", "teacher", "note"})
+     * @Groups({"user", "classroomu", "classroomt", "planning", "announce", "teacher", "note", "classroom"})
      */
     private $letter;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups({"user", "classroomu", "classroomt", "planning", "announce", "teacher", "note"})
+     * @Groups({"user", "classroomu", "classroomt", "planning", "announce", "teacher", "note", "classroom"})
      */
     private $grade;
 
@@ -196,7 +196,7 @@ class Classroom
     /**
      * @return Collection|Teacher[]
      */
-    public function getTeachers(): Collection
+    public function getTeachers():Collection
     {
         return $this->teachers;
     }

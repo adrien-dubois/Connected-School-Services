@@ -91,9 +91,19 @@ class Teacher implements UserInterface, PasswordAuthenticatedUserInterface
         $this->announces = new ArrayCollection();
     }
 
+    public function __toString()
+    {
+        return $this->getName();
+    }
+
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    public function getName()
+    {
+        return $this->getLastname() . ' ' . $this->getFirstname();
     }
 
     public function getEmail(): ?string
