@@ -27,7 +27,10 @@ class ClassroomType extends AbstractType
                 'label'=>'Niveau de classe'
             ])
             ->add('letter',null,[
-                'label'=>'Lettre'
+                'label'=>'Lettre',
+                'attr'=>[
+                    'placeholder'=>'Lettre'
+                ]
             ])
             ->add('teachers', EntityType::class,[
                 'class'=>Teacher::class,
