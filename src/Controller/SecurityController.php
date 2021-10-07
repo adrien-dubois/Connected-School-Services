@@ -79,7 +79,7 @@ class SecurityController extends AbstractController
                     'Cette adresse e-mail est inconnue'
                 );
 
-                return $this->redirectToRoute('home');
+                return $this->render('security/redirect.html.twig');
             }
 
             // We generate a token
@@ -94,7 +94,7 @@ class SecurityController extends AbstractController
                 $this->addFlash(
                     'warning',
                     $e->getMessage());
-                    return $this->redirectToRoute('home');
+                    return $this->render('security/redirect.html.twig');
             }
 
             // Generate change password URL
@@ -118,7 +118,7 @@ class SecurityController extends AbstractController
                 'Email de réinitialisation du mot de passe envoyé !'
             );
 
-            return $this->redirectToRoute('home');
+            return $this->render('security/redirect.html.twig');
         }
         return $this->render('security/reset.html.twig',[
             'formView'=>$form->createView()
@@ -146,7 +146,7 @@ class SecurityController extends AbstractController
                 'danger',
                 'Ce lien n\'est pas/plus valide'
             );
-            return $this->redirectToRoute('home');
+            return $this->render('security/redirect.html.twig');
         }
 
         // If form is send with post method
@@ -167,7 +167,7 @@ class SecurityController extends AbstractController
                 'Votre mot de passe a bien été mis à jour'
             );
 
-            return $this->redirectToRoute('home');
+            return $this->render('security/redirect.html.twig');
         } else {
             // If we don't have datas, we display the form
             return $this->render('security/reset_password.html.twig',[
