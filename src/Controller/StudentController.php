@@ -114,7 +114,7 @@ class StudentController extends AbstractController
                         'Élève ajouté avec succès'
                     );
 
-            return $this->redirectToRoute('student_home');
+            return $this->redirectToRoute('home');
         }
 
         return $this->render('registration/register.html.twig',[

@@ -33,7 +33,8 @@
 
       {# FOOTER #}
       <div class="modal-footer">
-        <a href="#" class="btn btn-outline-secondary">Éditer</a>
+        <a href="{{path('classroom_delete', {id: classroom.id})}} " class="btn btn-outline-danger">Supprimer</a>
+        <a href="{{path('classroom_update', {id: classroom.id})}} " class="btn btn-outline-secondary">Éditer</a>
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
       </div>
     </div>
