@@ -14,8 +14,8 @@ nelmio_cors:
                 max_age: 3600
         '^/':
             origin_regex: true
-            allow_origin: ['http://ec2-18-204-199-165.compute-1.amazonaws.com/']
+            allow_origin: ['http://ec2-18-204-199-165.compute-1.amazonaws.com/', 'http://connectedschoolservices.surge.sh/']
             allow_headers: ['X-Custom-Auth']
-            allow_methods: ['POST', 'PUT', 'GET', 'DELETE']
+            allow_methods: ['POST', 'PUT', 'PATCH', 'GET', 'DELETE']
             max_age: 3600
             hosts: ['^api\.']
