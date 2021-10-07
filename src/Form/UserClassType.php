@@ -35,7 +35,7 @@ class UserClassType extends AbstractType
                 }
             ])
             ->add('submit', SubmitType::class,[
-                'label'=>'Ajouter',
+                'label'=>'Enregistrer',
                 'attr'=>[
                     'class'=>'btn btn-secondary mb-3 mx-auto'
                 ]

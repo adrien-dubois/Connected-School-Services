@@ -52,7 +52,7 @@ class ClassroomType extends AbstractType
                 'placeholder' => 'Choisissez des professeurs',
             ])
             ->add('submit', SubmitType::class,[
-                'label'=>'Ajouter',
+                'label'=>'Suite',
                 'attr'=>[
                     'class'=>'btn btn-secondary mb-3 mx-auto'
                 ]

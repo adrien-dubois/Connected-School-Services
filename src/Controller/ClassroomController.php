@@ -98,7 +98,7 @@ class ClassroomController extends AbstractController
      * @param ClassroomRepository $repository
      * @return void
      */
-    public function createNext(Classroom $class, Request $request, ClassroomRepository $repository)
+    public function createNext(Classroom $class, Request $request)
     {
         $form = $this->createForm(UserClassType::class, $class);
         $form->handleRequest($request);
@@ -118,5 +118,92 @@ class ClassroomController extends AbstractController
         return $this->render('classroom/next.html.twig',[
             'formView'=>$form->createView()
         ]);
+    }
+
+    /**
+     * Edit a classroom composition
+     * 
+     * @Route("/{id}/update", name="update", methods={"GET", "POST"})
+     *
+     * @param Request $request
+     * @param Classroom $class
+     * @return void
+     */
+    public function update(Request $request, Classroom $class)
+    {
+        $form = $this->createForm(ClassroomType::class, $class);
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid()){
+            $this->getDoctrine()->getManager()->flush();
+
+            $id = $class->getId();
+
+            $this->addFlash(
+                'success',
+                'Première partie de la classe modifiée'
+            );
+
+            return $this->redirectToRoute('classroom_update_next',[
+                'id'=>$id
+            ]);
+        }
+
+        return $this->render('classroom/update.html.twig',[
+            'formView'=>$form->createView()
+        ]);
+    }
+
+    /**
+     * Next page to update a classroom
+     * 
+     * @Route("/{id}/next", name="update_next", methods={"GET", "POST"})
+     *
+     * @param Request $request
+     * @param Classroom $class
+     * @return void
+     */
+    public function updateNext(Request $request, Classroom $class)
+    {
+        $form = $this->createForm(UserClassType::class, $class);
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid()){
+            $this->getDoctrine()->getManager()->flush();
+
+            $this->addFlash(
+                'success',
+                'La classe a bien été modifiée'
+            );
+
+            return $this->redirectToRoute('home');
+        }
+
+        return $this->render('classroom/update-next.html.twig', [
+            'formView'=>$form->createView()
+        ]);
+    }
+
+    
+    /**
+     * Delete a classroom
+     * 
+     * @Route("/{id}/delete", name="delete", methods={"GET", "POST"})
+     *
+     * @param Classroom $class
+     * @return void
+     */
+    public function delete(Classroom $class)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $em->remove($class);
+        $em->flush();
+
+        $this->addFlash(
+            'success',
+            'La classe a bien été supprimée'
+        );
+
+        return $this->redirectToRoute('home');
     }
 }
