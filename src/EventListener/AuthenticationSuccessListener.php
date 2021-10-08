@@ -38,8 +38,10 @@ class AuthenticationSuccessListener {
             $last = $test->getLastname();
             $id = $test->getId();
             $class = $test->getClassroom();
-            $letter = $class->getLetter();
-            $grade = $class->getGrade();
+            if ($class === !null) {
+                $letter = $class->getLetter();
+                $grade = $class->getGrade();
+            }
             $classId = $class->getId();
         }
         elseif($role == ["ROLE_TEACHER"]){
