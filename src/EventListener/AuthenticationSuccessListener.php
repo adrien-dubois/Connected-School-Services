@@ -41,8 +41,8 @@ class AuthenticationSuccessListener {
             if ($class === !null) {
                 $letter = $class->getLetter();
                 $grade = $class->getGrade();
+                $classId = $class->getId();
             }
-            $classId = $class->getId();
         }
         elseif($role == ["ROLE_TEACHER"]){
             $teacher = $this->teacherRepository->findOneBy(['email'=>$users]);
