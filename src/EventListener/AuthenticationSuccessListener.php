@@ -79,15 +79,16 @@ class AuthenticationSuccessListener {
                     'grade'=>$grade
                     ]
             );
-        } elseif ($role == ["ROLE_USER"]){
-            $data['data'] = array(
-                'id' => $id,
-                'firstname' => $first,
-                'lastname' => $last,
-                'roles' => $user->getRoles(),
-                    'classroom' => $class
-            );
-        }
+        } 
+        // elseif ($role == ["ROLE_USER"]){
+        //     $data['data'] = array(
+        //         'id' => $id,
+        //         'firstname' => $first,
+        //         'lastname' => $last,
+        //         'roles' => $user->getRoles(),
+        //             'classroom' => $class
+        //     );
+        // }
         elseif($role == ["ROLE_TEACHER"]){
             $data['data'] = array(
                 'id'=> $id,
