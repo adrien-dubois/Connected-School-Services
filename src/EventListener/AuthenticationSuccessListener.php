@@ -67,7 +67,7 @@ class AuthenticationSuccessListener {
         }
        
         // And then make the data array that will display in the body response of the connection with the JWT Token
-        if($role == ["ROLE_USER"]){
+        if($role == ["ROLE_USER"] && $class === !null){
         $data['data'] = array(
             'id' => $id,
             'firstname' => $first,
@@ -77,7 +77,15 @@ class AuthenticationSuccessListener {
                     'id'=>$classId,
                     'letter'=>$letter,
                     'grade'=>$grade
-                ]
+                    ]
+            );
+        } elseif ($role == ["ROLE_USER"] && $class === null){
+            $data['data'] = array(
+                'id' => $id,
+                'firstname' => $first,
+                'lastname' => $last,
+                'roles' => $user->getRoles(),
+                    'classroom' => $class
             );
         }
         elseif($role == ["ROLE_TEACHER"]){
