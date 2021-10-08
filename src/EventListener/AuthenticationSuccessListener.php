@@ -38,7 +38,7 @@ class AuthenticationSuccessListener {
             $last = $test->getLastname();
             $id = $test->getId();
             $class = $test->getClassroom();
-            if ($class === !null) {
+            if ($class == !null) {
                 $letter = $class->getLetter();
                 $grade = $class->getGrade();
                 $classId = $class->getId();
@@ -67,7 +67,7 @@ class AuthenticationSuccessListener {
         }
        
         // And then make the data array that will display in the body response of the connection with the JWT Token
-        if($role == ["ROLE_USER"] && $class === !null){
+        if($role == ["ROLE_USER"] && $class == !null){
         $data['data'] = array(
             'id' => $id,
             'firstname' => $first,
@@ -80,15 +80,6 @@ class AuthenticationSuccessListener {
                     ]
             );
         } 
-        // elseif ($role == ["ROLE_USER"]){
-        //     $data['data'] = array(
-        //         'id' => $id,
-        //         'firstname' => $first,
-        //         'lastname' => $last,
-        //         'roles' => $user->getRoles(),
-        //             'classroom' => $class
-        //     );
-        // }
         elseif($role == ["ROLE_TEACHER"]){
             $data['data'] = array(
                 'id'=> $id,
