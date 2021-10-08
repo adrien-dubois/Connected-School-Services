@@ -79,7 +79,7 @@ class AuthenticationSuccessListener {
                     'grade'=>$grade
                     ]
             );
-        } elseif ($role == ["ROLE_USER"] && $class === null){
+        } elseif ($role == ["ROLE_USER"]){
             $data['data'] = array(
                 'id' => $id,
                 'firstname' => $first,
