@@ -19,6 +19,14 @@ class DisciplineRepository extends ServiceEntityRepository
         parent::__construct($registry, Discipline::class);
     }
 
+    public function countBy()
+    {
+        return $this->createQueryBuilder('d')
+                    ->select('count(d.id)')
+                    ->getQuery()
+                    ->getSingleScalarResult();
+    }
+
     // /**
     //  * @return Discipline[] Returns an array of Discipline objects
     //  */
