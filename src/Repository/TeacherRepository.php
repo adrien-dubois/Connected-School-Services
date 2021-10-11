@@ -9,6 +9,8 @@ use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\PasswordUpgraderInterface;
 
+use function Symfony\Component\DependencyInjection\Loader\Configurator\expr;
+
 /**
  * @method Teacher|null find($id, $lockMode = null, $lockVersion = null)
  * @method Teacher|null findOneBy(array $criteria, array $orderBy = null)
@@ -44,6 +46,14 @@ class TeacherRepository extends ServiceEntityRepository implements PasswordUpgra
                     ->setParameter(':id', "%$classroom%")
                     ->getQuery()
                     ->getResult();
+    }
+
+    public function countBy()
+    {
+        return $this->createQueryBuilder('t')
+                    ->select('count(t.id)')
+                    ->getQuery()
+                    ->getSingleScalarResult();
     }
 
     // /**

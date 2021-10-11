@@ -39,6 +39,13 @@ class ClassroomRepository extends ServiceEntityRepository
                     ->getResult();
     }
 
+    public function countBy()
+    {
+        return $this->createQueryBuilder('c')
+                    ->select('count(c.id)')
+                    ->getQuery()
+                    ->getSingleScalarResult();
+    }
     
 
     // /**
