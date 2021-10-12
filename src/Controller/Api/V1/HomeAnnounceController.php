@@ -20,7 +20,7 @@ class HomeAnnounceController extends AbstractController
      */
     public function index(AnnounceRepository $announceRepository): Response
     {
-        $announces = $announceRepository->findAll();
+        $announces = $announceRepository->findBy([],['createdAt'=>"DESC"]);
 
         return $this->json($announces, 200, [],[
             'groups' => 'announce'
