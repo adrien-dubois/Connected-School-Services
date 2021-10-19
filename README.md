@@ -4,13 +4,10 @@
 
 Connected School Services is a digital services plateform, that brings together all interactions and communications, that could be between a student( or parents for the youngest students), the school and its teachers / administration.
 
-### Product team
+This is the backend of the application ( Full Symfony ) : 
+ - One part is an API Restfull that the front side will pick the endpoints that he needs
+ - Another part is the backoffice for the administration of the school, to manage students / teachers & classrooms
 
-- **Product Owner** : Julien Scholasch
-- **Scrum Master** : Felipe Brando Talero
-- **Lead Dev Front** : Willy Delerue
-- **Lead Dev Back** : Kevin Planchais
-- **Git Master** : Adrien Dubois
 
 ## **_Dependencies to install :_**
 
